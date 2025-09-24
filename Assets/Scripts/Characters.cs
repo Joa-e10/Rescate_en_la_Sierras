@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,8 +8,11 @@ public class Characters : MonoBehaviour
     private float lives = 5.0f;
     protected float speed = 4;
     private bool _alive = true;
+    protected bool attacking = false;
     protected Rigidbody2D _rb;
     protected Transform _player;
+    public Animator animator;
+    public SpriteRenderer sprite;
     protected float detectionRadius = 5.0f;
     protected Vector2 movement;
     //protected GameObject[] inventory = new GameObject[4];
@@ -34,19 +38,26 @@ public class Characters : MonoBehaviour
         _rb.MovePosition(_rb.position + movement * speed * Time.deltaTime);
     }
 
-   protected void takesDamage(int received) 
+   public void takesDamage(float received) 
     {
 
-        lives = lives - received;
-
-        if (lives <= 0) 
+        if (lives <= 0)
         {
             _alive = false;
             die();
 
         }
+        else {
+
+            lives = lives - received;
+
+        }
     }
-        private void die() 
+    public float GetLives()
+    {
+        return lives;
+    }
+    private void die() 
         {
             if (_alive == false) {
 
