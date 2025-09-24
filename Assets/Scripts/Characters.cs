@@ -4,8 +4,9 @@ using UnityEngine.InputSystem;
 public class Characters : MonoBehaviour
 {
 
-    protected int lives = 5;
+    private float lives = 5.0f;
     protected float speed = 4;
+    private bool _alive = true;
     protected Rigidbody2D _rb;
     protected Transform _player;
     protected float detectionRadius = 5.0f;
@@ -32,8 +33,27 @@ public class Characters : MonoBehaviour
 
         _rb.MovePosition(_rb.position + movement * speed * Time.deltaTime);
     }
-    
 
+   protected void takesDamage(int received) 
+    {
+
+        lives = lives - received;
+
+        if (lives <= 0) 
+        {
+            _alive = false;
+            die();
+
+        }
+    }
+        private void die() 
+        {
+            if (_alive == false) {
+
+             Debug.Log("El jugador murio");
+
+            }
+        }
     /*protected void interactionCharacter()
     {
 
