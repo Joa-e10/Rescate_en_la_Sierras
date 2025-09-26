@@ -12,5 +12,6 @@ public class Enemy : Characters
     void Update()
     {
         moveCharacter();
+        Debug.Log($"Vida total: {GetLives()}");
     }
 }
