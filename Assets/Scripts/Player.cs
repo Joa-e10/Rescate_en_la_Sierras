@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class Player : Characters
 {
-
+    
 
     void Start()
     {
@@ -24,6 +24,7 @@ public class Player : Characters
             attacking = true;
             
             Debug.Log("Botón presionado");
+            
             
         }
 

@@ -12,19 +12,19 @@ public class NewMonoBehaviourScript : MonoBehaviour
         
     }
 
-    public void damager()
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        void OnCollisionEnter2D(Collider2D collision)
-        {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             if (enemy != null)
             {
                 enemy.takesDamage(quantityDamage);
+                Debug.Log($"Contacto y daño recibido = {quantityDamage}");
             }
 
 
 
-        }
+        
 
     }
     void Update()

@@ -12,6 +12,6 @@ public class Enemy : Characters
     void Update()
     {
         moveCharacter();
-        Debug.Log($"DAÑO RECIBIDO: {GetLives()}");
+        Debug.Log($"Vida total: {GetLives()}");
     }
 }

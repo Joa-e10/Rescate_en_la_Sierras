@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -61,7 +62,7 @@ public class Characters : MonoBehaviour
         {
             if (_alive == false) {
 
-             Debug.Log("El jugador murio");
+                Destroy(gameObject);
 
             }
         }
