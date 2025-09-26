@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
-    protected float quantityDamage = 2.0f;
+    protected int quantityDamage = 1;
    protected float range = 4.0f;
-   protected float cooldown = 1.5f;
+   protected float cooldown = 1f;
 
 
     void Start()
