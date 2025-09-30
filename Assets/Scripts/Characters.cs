@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class Characters : MonoBehaviour
 {
 
-    private float lives = 5.0f;
+    private int lives = 5;
     protected float speed = 4;
     private bool _alive = true;
     protected bool attacking = false;
@@ -39,10 +39,10 @@ public class Characters : MonoBehaviour
         _rb.MovePosition(_rb.position + movement * speed * Time.deltaTime);
     }
 
-   public void takesDamage(float received) 
+   public void takesDamage(int received) 
     {
 
-        if (lives <= 0)
+        if (lives <= 1)
         {
             _alive = false;
             die();
