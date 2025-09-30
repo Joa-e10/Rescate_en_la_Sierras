@@ -5,46 +5,28 @@ using UnityEngine.InputSystem;
 
 public class Characters : MonoBehaviour
 {
+    // Declaracion de las variables que tienen en conjunto todos los personajes.
 
     private int lives = 5;
     protected float speed = 4;
     private bool _alive = true;
     protected bool attacking = false;
     protected Rigidbody2D _rb;
-    protected Transform _player;
     public Animator animator;
     public SpriteRenderer sprite;
-    protected float detectionRadius = 5.0f;
-    protected Vector2 movement;
     //protected GameObject[] inventory = new GameObject[4];
 
 
     private void Start()
     {
     }
-    protected void moveCharacter()
-    {
-        float distanceToPlayer = Vector2.Distance(transform.position, _player.position);
-        if (distanceToPlayer < detectionRadius)
-        {
-            Vector2 direccion = (_player.position - transform.position).normalized;
 
-            movement = new Vector2(direccion.x, 0);
-        }
-        else
-        {
-            movement = Vector2.zero;
-        }
-
-        _rb.MovePosition(_rb.position + movement * speed * Time.deltaTime);
-    }
-
-   public void takesDamage(int received) 
+   public void takesDamage(int received) // metodo "recibir daño".
     {
 
-        if (lives <= 1)
+        if (lives <= 1) //Condicional para saber si el personaje esta vivo (vidas mayor a 1) para recibir el daño. 
         {
-            _alive = false;
+            _alive = false; //En caso contrario, se le cambiara el estado de "vivo" a falso y pasara a ser destruido.
             die();
 
         }
@@ -54,13 +36,15 @@ public class Characters : MonoBehaviour
 
         }
     }
+
     public float GetLives()
     {
         return lives;
     }
-    private void die() 
+
+    private void die() // Metodo "morir".
         {
-            if (_alive == false) {
+            if (_alive == false) { //Condicional para saber si el personaje se encuentra vivo para destruirlo o no.
 
                 Destroy(gameObject);
 
