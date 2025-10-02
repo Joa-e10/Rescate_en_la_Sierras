@@ -3,19 +3,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Characters : MonoBehaviour
+public abstract class Characters : MonoBehaviour
 {
     // Declaracion de las variables que tienen en conjunto todos los personajes.
 
     private int lives = 5;
     protected float speed = 4;
-    private bool _alive = true;
+    protected bool _alive = true;
     protected bool attacking = false;
     protected Rigidbody2D _rb;
     public Animator animator;
     public SpriteRenderer sprite;
-    //protected GameObject[] inventory = new GameObject[4];
-
 
     private void Start()
     {
@@ -30,7 +28,7 @@ public class Characters : MonoBehaviour
             die();
 
         }
-        else {
+        else { //si no, se le restara el daño recibido a "lives".
 
             lives = lives - received;
 
@@ -42,35 +40,19 @@ public class Characters : MonoBehaviour
         return lives;
     }
 
-    private void die() // Metodo "morir".
-        {
-            if (_alive == false) { //Condicional para saber si el personaje se encuentra vivo para destruirlo o no.
-
-                Destroy(gameObject);
-
-            }
-        }
-    /*protected void interactionCharacter()
+    public void attackDisabled() // Metodo "Ataque Deshabilitado"
     {
 
-        void OnTriggerEnter2D(Collider2D collision)
-        {
+        attacking = false; //Cambia el estado del ataque.
+        Debug.Log("El evento anda");
+    }
 
-            collectable collectable = collision.gameObject.GetComponent<collectable>();
+    protected abstract void die(); // Metodo "morir".
+        
+            //if (_alive == false) { //Condicional para saber si el personaje se encuentra vivo para destruirlo o no.
 
-            if (collectable != null)
-            {
-                for (int i = 0; i <= 3; i++)
-                {
+               // Destroy(gameObject);
 
-
-                    inventory[i] = gameObject;
-                    Debug.Log($"Se guardo el objeto {inventory[i]}");
-
-                }
-            }
-        }
-
-    }*/
-
+            //}
+       
 }

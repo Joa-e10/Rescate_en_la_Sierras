@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : Characters
 {
@@ -30,16 +31,19 @@ public class Player : Characters
 
     }
 
-    public void attackDisabled() // Metodo "Ataque Deshabilitado"
-    {
-
-        attacking = false; //Cambia el estado del ataque.
-
-    }
-
 
     private void Update()
     {
         animator.SetBool("attacking", attacking);
+    }
+
+    protected override void die()
+    {
+        if (_alive == false) //Condicional para saber si el personaje se encuentra vivo para destruirlo o no.
+        {
+
+            SceneManager.LoadScene("SampleScene");
+
+        }
     }
 }
