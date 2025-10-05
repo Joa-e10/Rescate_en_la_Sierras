@@ -11,9 +11,11 @@ public abstract class Characters : MonoBehaviour
     protected float speed = 4;
     protected bool _alive = true;
     protected bool attacking = false;
+    protected bool shooting = false;
     protected Rigidbody2D _rb;
     public Animator animator;
     public SpriteRenderer sprite;
+
 
     private void Start()
     {
