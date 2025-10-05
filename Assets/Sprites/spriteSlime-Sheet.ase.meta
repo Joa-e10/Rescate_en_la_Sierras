@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 966dbc106f8fcd143a79be53c4541d24
+guid: e7cdf1bbc2eff2f4bb19e74ff5336acc
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -36,7 +36,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 70
+    spritePixelsToUnits: 130
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -102,7 +102,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638949399520754466
+  platformSettingsDirtyTick: 638949415276270037
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -127,9 +127,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: "mu\xF1e_attack-Sheet"
+  - name: spriteSlime-Sheet
     originalName: 
-    pivot: {x: 0.5071633, y: 0}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -137,9 +137,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 349
-      height: 53
-    spriteID: fe85b13b43bcba743830fe0e82b78005
+      width: 192
+      height: 28
+    spriteID: a4b9e3a4fd052924d99e87739067efac
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -147,9 +147,9 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: -11, y: 4}
+    uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: "mu\xF1e_attack-Sheet_0"
+  - name: spriteSlime-Sheet_0
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -159,9 +159,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 64
-      height: 64
-    spriteID: 8ce5cd5e75a622d46a23805493722835
+      width: 32
+      height: 32
+    spriteID: e62e01c4252bcc04db56fdf2291ea5a7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -170,7 +170,28 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: "mu\xF1e_attack-Sheet_1"
+  - name: spriteSlime-Sheet_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 32
+      y: 0
+      width: 32
+      height: 32
+    spriteID: 913dfee74b4e6904988c21f59727c9a4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: spriteSlime-Sheet_2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -180,9 +201,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 64
       y: 0
-      width: 64
-      height: 64
-    spriteID: c0b20f83c1946504785a38f7f0be8444
+      width: 32
+      height: 32
+    spriteID: 350839cb0d421cb45b13691c7da0b145
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -191,7 +212,28 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: "mu\xF1e_attack-Sheet_2"
+  - name: spriteSlime-Sheet_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 96
+      y: 0
+      width: 32
+      height: 32
+    spriteID: a6462de26732b28409f6c62831f3a02d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: spriteSlime-Sheet_4
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -201,9 +243,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 128
       y: 0
-      width: 64
-      height: 64
-    spriteID: 5df067703a96e5f4894d66486473f384
+      width: 32
+      height: 32
+    spriteID: 944728d0a7ad4de4b82e2aebe909a313
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -212,7 +254,28 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: "mu\xF1e_attack-Sheet_3"
+  - name: spriteSlime-Sheet_5
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 160
+      y: 0
+      width: 32
+      height: 32
+    spriteID: 67d0017727ecfce47aeeaee062ee71cd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: spriteSlime-Sheet_6
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -222,51 +285,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 192
       y: 0
-      width: 64
-      height: 64
-    spriteID: 3619b527a720da249a2daa39ae865283
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: "mu\xF1e_attack-Sheet_4"
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 256
-      y: 0
-      width: 64
-      height: 64
-    spriteID: b205f139649c38d42baba1e031a6a39a
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: "mu\xF1e_attack-Sheet_5"
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 320
-      y: 0
-      width: 64
-      height: 64
-    spriteID: d77c1ad41d2b31d438591928e73a4470
+      width: 32
+      height: 32
+    spriteID: 9afca172b0160634e913e44d82934937
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -279,25 +300,25 @@ ScriptedImporter:
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 310988361
+      value0: 3145635877
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: "mu\xF1e_attack-Sheet"
+    name: spriteSlime-Sheet
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: "mu\xF1e_attack-Sheet"
+    - name: spriteSlime-Sheet
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
-        width: 384
-        height: 64
-      spriteId: fe85b13b43bcba743830fe0e82b78005
+        width: 192
+        height: 32
+      spriteId: a4b9e3a4fd052924d99e87739067efac
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
@@ -331,5 +352,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 384, y: 64}
-  previousTextureSize: {x: 512, y: 64}
+  canvasSize: {x: 192, y: 32}
+  previousTextureSize: {x: 256, y: 64}
