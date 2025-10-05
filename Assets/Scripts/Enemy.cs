@@ -1,19 +1,19 @@
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
-public class Enemy : Characters
+public abstract class Enemy : Characters
 {
     //Declaracion de las variables que solo utilizaran los enemigos.
-    protected float detectionRadius = 6.0f;
+    protected float detectionRadius = 10.0f;
     protected Vector2 movement;
     protected Transform _player;
+    public GameObject bulletEnemy;
     protected float distanceToPlayer;
     protected float cooldown = 0;
     protected bool onCooldown = false;
      
     void Start()
     {
-       
     }
 
 
@@ -36,39 +36,7 @@ public class Enemy : Characters
     }
 
 
-    protected void Attack()
-    {
-        
-        if (distanceToPlayer <= 3 && onCooldown == false) // Si se cumplen las 2 condiciones el enemigo puede atacar.
-        {
-            Debug.Log("ENTRO");
-            attacking = true; // Activamos ataque.
-            animator.SetBool("attacking", attacking); // Activa la animacion de ataque
-            Debug.Log("EL ENEMIGO ATACAAA!!");
-
-            
-            onCooldown = true; // Activamos cooldown
-
-
-        }
-
-        
-        if (onCooldown) // Si cooldown esta activo empieza el conteo del cooldown.
-        {
-            Debug.Log("Arranco el cooldown");
-            cooldown = cooldown + Time.deltaTime;
-            animator.SetBool("attacking", attacking); // Desactivamos la animacion de ataque.
-
-            if (cooldown >= 2f) // Si cooldown es mayor o igual a 2
-            {
-                Debug.Log("entro2");
-                onCooldown = false; //Desactivamos cooldown.
-
-                cooldown = 0;// Reiniciamos el tiempo del cooldown para que el enemigo pueda atacar.
-                Debug.Log("Se restauro el cooldown");
-            }
-        }
-    }
+    protected abstract void Attack();
 
     void Update()
     {

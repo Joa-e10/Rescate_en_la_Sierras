@@ -3,9 +3,9 @@ using UnityEngine.InputSystem;
 
 public class gun : Weapon
 {
-  /*  private bool _shooting = false;
+   /* private bool _shooting = false;
     private bool _attacking = false;
-    public GameObject bullet;
+    public GameObject bulletEnemy;
     private Player player;
     private Vector2 _directionBullet;
     void Start()
@@ -29,9 +29,8 @@ public class gun : Weapon
         { 
         
             _shooting = true;
-            GameObject generatedBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-            bullet bulletComponent = generatedBullet.GetComponent<bullet>();
-            bulletComponent.setDirection(_directionBullet);
+            GameObject generatedBullet = Instantiate(bulletEnemy, transform.position, Quaternion.identity);
+            BulletEnemy bulletComponent = generatedBullet.GetComponent<BulletEnemy>();
 
 
         }

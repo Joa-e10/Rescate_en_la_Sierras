@@ -1,16 +1,16 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class bullet : MonoBehaviour
+public class BulletEnemy : MonoBehaviour
 {
     private int _damage = 1;
     private float _resetTime = 2f;
     private Vector2 _direction;
     private int speed = 5;
     private Rigidbody2D _rb;
+
     void Start()
     {
-        
+
         _rb = GetComponent<Rigidbody2D>(); ;
     }
 
@@ -22,12 +22,12 @@ public class bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
+        Player player = collision.gameObject.GetComponent<Player>();
 
-        if (enemy != null)
+        if (player != null)
         {
             Debug.Log("le dispare");
-            enemy.takesDamage(_damage);
+            player.takesDamage(_damage);
             Destroy(gameObject);
         }
     }
@@ -36,7 +36,7 @@ public class bullet : MonoBehaviour
     void Update()
     {
         _rb.linearVelocity = _direction * speed;
-        Debug.Log("Arranque desde:"+ _direction);
+        Debug.Log("Arranque desde:" + _direction);
         _resetTime -= Time.deltaTime;
 
 

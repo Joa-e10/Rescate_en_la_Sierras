@@ -7,8 +7,8 @@ public class Player : Characters
 {
     private Vector2 _directionMove;
     private Vector2 _directionBullet;
-    private Transform gun;
     public GameObject bullet;
+    private Transform gun;
 
     void Start()
     {
@@ -59,6 +59,16 @@ public class Player : Characters
 
     }
 
+    protected override void die()
+    {
+        if (_alive == false) //Condicional para saber si el personaje se encuentra vivo para destruirlo o no.
+        {
+
+            SceneManager.LoadScene("SampleScene");
+
+        }
+    }
+
 
 
     private void Update()
@@ -94,13 +104,4 @@ public class Player : Characters
         Debug.Log("Posicion: "+gun);
     }
 
-    protected override void die()
-    {
-        if (_alive == false) //Condicional para saber si el personaje se encuentra vivo para destruirlo o no.
-        {
-
-            SceneManager.LoadScene("SampleScene");
-
-        }
-    }
 }
