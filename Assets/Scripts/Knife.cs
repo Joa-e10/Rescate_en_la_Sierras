@@ -2,7 +2,7 @@
 
 public class Knife : Weapon
 {
-    private void OnTriggerEnter2D(Collider2D collision) // Utilizamos este metodo para tomar la colision del objeto y ver si choca con algo.
+    private void OnCollisionEnter2D(Collision2D collision) // Utilizamos este metodo para tomar la colision del objeto y ver si choca con algo.
     {
         Player player = collision.gameObject.GetComponent<Player>(); // Guardamos el componente Player.
         if (player != null) // Verificamos que el objeto choque con un objeto con el componente Player.
