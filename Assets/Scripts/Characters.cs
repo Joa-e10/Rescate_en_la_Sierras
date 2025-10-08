@@ -7,7 +7,7 @@ public abstract class Characters : MonoBehaviour
 {
     // Declaracion de las variables que tienen en conjunto todos los personajes.
 
-    private int lives = 5;
+    private float lives = 5f;
     protected float speed = 4;
     protected bool _alive = true;
     protected bool attacking = false;
@@ -21,7 +21,7 @@ public abstract class Characters : MonoBehaviour
     {
     }
 
-   public void takesDamage(int received) // metodo "recibir daño".
+   public void takesDamage(float received) // metodo "recibir daño".
     {
 
         if (lives <= 1) //Condicional para saber si el personaje esta vivo (vidas mayor a 1) para recibir el daño. 
@@ -42,11 +42,15 @@ public abstract class Characters : MonoBehaviour
         return lives;
     }
 
+    public void SetLives(float livesCharacter) 
+    {
+        lives = livesCharacter;
+    }
+
     public void attackDisabled() // Metodo "Ataque Deshabilitado"
     {
 
         attacking = false; //Cambia el estado del ataque.
-        Debug.Log("El evento anda");
     }
 
     protected abstract void die(); // Metodo "morir".
