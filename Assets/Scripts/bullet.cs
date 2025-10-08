@@ -22,7 +22,7 @@ public class bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
+        FinalBoss enemy = collision.gameObject.GetComponent<FinalBoss>();
 
         if (enemy != null)
         {

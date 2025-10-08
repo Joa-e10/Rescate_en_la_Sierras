@@ -5,15 +5,14 @@ public class FinalBoss : Enemy
 {
     private int _counter;
     private int _counter2;
-    private float _cooldownMax = 1.5f;
+    private float _cooldownMax = 3f;
     private Vector2 _lastBullet;
     private Transform gun;
 
+
     void Start()
     {
-        livesEnemy = 8;
-        lives = GetComponent<Characters>();
-        lives.SetLives(livesEnemy);
+        //lives = 8;
         _rb = GetComponent<Rigidbody2D>();
         _player = GameObject.Find("player").GetComponent<Transform>();
         gun = GameObject.Find("gunController(2)").GetComponent<Transform>();
@@ -41,6 +40,7 @@ public class FinalBoss : Enemy
 
             if (onCooldown) // Si cooldown esta activo empieza el conteo del cooldown.
             {
+                Debug.Log("Activando cooldown");
                 cooldown = cooldown + Time.deltaTime;
                 animator.SetBool("Attacking", attacking); // Desactivamos la animacion de ataque.
 
@@ -63,52 +63,44 @@ public class FinalBoss : Enemy
                 shooting = false;
                 onCooldown = true; // Activamos cooldown
             }
-        }
-        if (onCooldown) // Si cooldown esta activo empieza el conteo del cooldown.
-        {
-            cooldown = cooldown + Time.deltaTime;
-
-            if (cooldown >= _cooldownMax) // Si cooldown es mayor o igual a 2
+            if (onCooldown) // Si cooldown esta activo empieza el conteo del cooldown.
             {
-                onCooldown = false; //Desactivamos cooldown.
+                Debug.Log("Activando cooldown");
+                cooldown = cooldown + Time.deltaTime;
 
-                cooldown = 0;// Reiniciamos el tiempo del cooldown para que el enemigo pueda atacar.
+                if (cooldown >= _cooldownMax) // Si cooldown es mayor o igual a 2
+                {
+                    onCooldown = false; //Desactivamos cooldown.
+
+                    cooldown = 0;// Reiniciamos el tiempo del cooldown para que el enemigo pueda atacar.
+                }
             }
         }
     }
     void Update()
     {
-        moveEnemy();
-        Attack();
-
-        Debug.Log("Vida "+lives);
-
-        if (livesEnemy <= 5 && attacking == false)
+        if (lives <= 5 && attacking == false)
         {
+            Debug.Log("La vida del jefe es menor a 5!");
             Attack();
             animator.SetBool("Attacking", attacking);
 
             shooting = true;
             if (_counter == 5)
             {
-                
-                attacking = true;
-                shooting = false;
-                Attack();
-                animator.SetBool("Attacking", attacking);
-                _counter = 0;
+                Debug.Log("Cambio de arma");
                 _counter2 = 0;
             }
 
             if (_counter2 == 6)
             {
-                _cooldownMax = 0.5f;
-                shooting = true;
-                Attack();
-                animator.SetBool("Attacking", attacking);
+                Debug.Log("Esta atacando disferente");
+                _counter = 0;
             }
+        }
+        else {
+            moveEnemy();
             Attack();
-            animator.SetBool("Attacking", attacking);
         }
     }
 }

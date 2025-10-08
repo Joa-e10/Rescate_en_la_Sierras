@@ -4,8 +4,6 @@ using static UnityEngine.Rendering.DebugUI;
 public abstract class Enemy : Characters
 {
     //Declaracion de las variables que solo utilizaran los enemigos.
-    protected Characters lives;
-    protected float livesEnemy;
     protected float detectionRadius = 10.0f;
     protected Vector2 movement;
     protected Transform _player;
@@ -42,8 +40,6 @@ public abstract class Enemy : Characters
 
     void Update()
     {
-        Debug.Log("Distancia del player" + distanceToPlayer);
-        Debug.Log($"Vida total: {GetLives()}");
     }
 
     protected override void die()
