@@ -1,106 +1,110 @@
 using System;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class FinalBoss : Enemy
 {
-    private int _counter;
-    private int _counter2;
-    private float _cooldownMax = 3f;
+    private float _cooldownMax;
+    private bool onCooldown2 = false;
+    private Vector2 _isStill;
     private Vector2 _lastBullet;
+    Vector2 directionBullet;
     private Transform gun;
 
 
     void Start()
     {
-        //lives = 8;
-        _rb = GetComponent<Rigidbody2D>();
-        _player = GameObject.Find("player").GetComponent<Transform>();
-        gun = GameObject.Find("gunController(2)").GetComponent<Transform>();
+        _rb = GetComponent<Rigidbody2D>(); // Toma el componente rigidbody2D del objeto.
+        _player = GameObject.Find("player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
+        gun = GameObject.Find("gunController(2)").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "gunController(2)".
 
-        
+
     }
 
     protected override void Attack() 
     {
-        if (distanceToPlayer <= 3)
+        //Si la distancia del jugador es menor o igual a 10 puede atacar.
+        if (distanceToPlayer <= 10)
         {
 
-            if (shooting == false && onCooldown == false) // Si se cumplen las 2 condiciones el enemigo puede atacar.
+            //Si la distancia del jugador es menor o igual a 3 puede atacar a melee.
+            if (distanceToPlayer <= 3)
             {
-                Debug.Log("ENTRO A ATACAR EL ENEMY");
-                attacking = true; // Activamos ataque.
-                animator.SetBool("Attacking", attacking); // Activa la animacion de ataque
-                _counter2++;
 
-                onCooldown = true; // Activamos cooldown
-
-
-            }
-
-
-            if (onCooldown) // Si cooldown esta activo empieza el conteo del cooldown.
-            {
-                Debug.Log("Activando cooldown");
-                cooldown = cooldown + Time.deltaTime;
-                animator.SetBool("Attacking", attacking); // Desactivamos la animacion de ataque.
-
-                if (cooldown >= _cooldownMax) // Si cooldown es mayor o igual a 2
+                // Si se cumplen las 2 condiciones el enemigo puede atacar.
+                if (shooting == false && onCooldown == false)
                 {
-                    onCooldown = false; //Desactivamos cooldown.
+                    Debug.Log("ENTRO A ATACAR EL ENEMY");
+                    attacking = true;
+                    animator.SetBool("Attacking", attacking); // Activa la animacion de ataque
+                    onCooldown = true; // Se activa el "cooldown"
+                }
 
-                    cooldown = 0;// Reiniciamos el tiempo del cooldown para que el enemigo pueda atacar.
+                // Si el cooldown esta activo empieza el conteo del mismo.
+                if (onCooldown)
+                {
+                    Debug.Log("Arranco el cooldown");
+                    cooldown = cooldown + Time.deltaTime;
+                    animator.SetBool("Attacking", attacking); // Desactivamos la animacion de ataque.
+
+                    //Si el cooldown llega a 2 o es mayor se desactiva y se resetea el contador.
+                    if (cooldown >= 2.0f)
+                    {
+                        Debug.Log("entro en cooldown el machete");
+                        onCooldown = false;
+
+                        cooldown = 0;
+                        Debug.Log("Se restauro el cooldown");
+                    }
                 }
             }
-        }
-        else if (attacking == false && shooting == true)
-        {
-            if (distanceToPlayer <= 8) {
+//LOGICA DEL DISPARO.
+
+            // Si se cumplen las 2 condiciones el enemigo puede disparar.
+            if (shooting && onCooldown == false)
+            {
+                Vector2 direction = (_player.position - transform.position);
+                _lastBullet = direction;
                 GameObject generatedBullet = Instantiate(bulletEnemy, gun.transform.position, Quaternion.identity);
                 BulletEnemy bulletComponent = generatedBullet.GetComponent<BulletEnemy>();
-                bulletComponent.setDirectionBullet(_lastBullet);
-                _lastBullet = movement;
-                _counter++;
-                shooting = false;
-                onCooldown = true; // Activamos cooldown
+                bulletComponent.setDirectionBullet(direction);
+                onCooldown2 = true; //Se activa el "cooldown2"
             }
-            if (onCooldown) // Si cooldown esta activo empieza el conteo del cooldown.
+
+            // Si el cooldown2 esta activo empieza el conteo del mismo.
+            if (onCooldown2)
             {
-                Debug.Log("Activando cooldown");
+                shooting = false;
+                Debug.Log("Arranco el cooldown de la pistola");
                 cooldown = cooldown + Time.deltaTime;
 
-                if (cooldown >= _cooldownMax) // Si cooldown es mayor o igual a 2
+                //Si el cooldown llega a 1 o es mayor se desactiva y se resetea el contador.
+                if (cooldown >= 1)
                 {
-                    onCooldown = false; //Desactivamos cooldown.
-
-                    cooldown = 0;// Reiniciamos el tiempo del cooldown para que el enemigo pueda atacar.
+                    onCooldown = false;
+                    cooldown = 0;
+                    Debug.Log("Se restauro el cooldown");
                 }
             }
         }
     }
     void Update()
     {
+       
+
+        Debug.Log(" direccion OFICIAL: "+_lastBullet);
+        moveEnemy();
+        Attack();
+
+        // Si se cumplen las dos condiciones el jefe cabiara de arma.
         if (lives <= 5 && attacking == false)
         {
-            Debug.Log("La vida del jefe es menor a 5!");
+
+            Debug.Log("La vida del jefe es menor a 5! Dispara");
+            
+            shooting = true;
             Attack();
             animator.SetBool("Attacking", attacking);
-
-            shooting = true;
-            if (_counter == 5)
-            {
-                Debug.Log("Cambio de arma");
-                _counter2 = 0;
-            }
-
-            if (_counter2 == 6)
-            {
-                Debug.Log("Esta atacando disferente");
-                _counter = 0;
-            }
-        }
-        else {
-            moveEnemy();
-            Attack();
         }
     }
 }

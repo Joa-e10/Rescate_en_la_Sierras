@@ -7,37 +7,40 @@ public class EnemyBase : Enemy
     {
         _rb = GetComponent<Rigidbody2D>(); // Toma el componente rigidbody2D del objeto.
         _player = GameObject.Find("player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
+
         speed = 2;
     }
 
     protected override void Attack()
     {
-        if (distanceToPlayer <= 3 && onCooldown == false) // Si se cumplen las 2 condiciones el enemigo puede atacar.
+
+        // Si se cumplen las 2 condiciones el enemigo puede atacar.
+        if (distanceToPlayer <= 3 && onCooldown == false)
         {
-            Debug.Log("ENTRO");
-            attacking = true; // Activamos ataque.
-            animator.SetBool("attacking", attacking); // Activa la animacion de ataque
+            attacking = true;
+            animator.SetBool("attacking", attacking);
             Debug.Log("EL ENEMIGO ATACAAA!!");
 
 
-            onCooldown = true; // Activamos cooldown
+            onCooldown = true; // Se activa el "cooldown" 
 
 
         }
 
-
-        if (onCooldown) // Si cooldown esta activo empieza el conteo del cooldown.
+        // Si el cooldown esta activo empieza el conteo del mismo.
+        if (onCooldown)
         {
             Debug.Log("Arranco el cooldown");
             cooldown = cooldown + Time.deltaTime;
-            animator.SetBool("attacking", attacking); // Desactivamos la animacion de ataque.
+            animator.SetBool("attacking", attacking);
 
-            if (cooldown >= 2f) // Si cooldown es mayor o igual a 2
+            //Si el cooldown llega a 2 o es mayor se desactiva y se resetea el contador.
+            if (cooldown >= 2f)
             {
-                Debug.Log("entro2");
-                onCooldown = false; //Desactivamos cooldown.
 
-                cooldown = 0;// Reiniciamos el tiempo del cooldown para que el enemigo pueda atacar.
+                onCooldown = false; 
+
+                cooldown = 0;
                 Debug.Log("Se restauro el cooldown");
             }
         }

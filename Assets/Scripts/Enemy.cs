@@ -19,20 +19,20 @@ public abstract class Enemy : Characters
         
     protected void moveEnemy()
     {
-        
+
             distanceToPlayer = Vector2.Distance(transform.position, _player.position); // Tomamos el total de la distancia que tiene el objeto del player.
             if (distanceToPlayer < detectionRadius && distanceToPlayer >= 3) // Condicional donde comparamos si la distancia total hacia el player es menor a el rango del objeto.
             {
-                Vector2 direccion = (_player.position - transform.position).normalized; // Declaracion para mover el objeto en relacion a la posicion del player.
+                Vector2 direction = (_player.position - transform.position).normalized; // Declaracion para mover el objeto en relacion a la posicion del player.
 
-                movement = new Vector2(direccion.x, direccion.y); // Declaracion de la direcciones a las que se movera cuando detecte al player.
+                movement = new Vector2(direction.x, direction.y); // Declaracion de la direcciones a las que se movera cuando detecte al player.
             }
             else // Si no, el objeto no se movera.
             {
                 movement = Vector2.zero;
             }
-        
-        _rb.linearVelocity = movement * speed; // Generamos el movimiento del objeto.
+
+            _rb.linearVelocity = movement * speed; // Generamos el movimiento del objeto.
     }
 
 

@@ -37,10 +37,11 @@ public abstract class Characters : MonoBehaviour
         }
     }
 
-    public void attackDisabled() // Metodo "Ataque Deshabilitado"
+    // Metodo "Ataque Deshabilitado" para cambiar el estado del ataque.
+    public void attackDisabled()
     {
 
-        attacking = false; //Cambia el estado del ataque.
+        attacking = false;
     }
 
     protected abstract void die(); // Metodo "morir".
