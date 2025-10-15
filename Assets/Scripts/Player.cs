@@ -76,32 +76,26 @@ public class Player : Characters
 
         if (_directionMove.x > 0)
         {
-            Debug.Log("Arranque desde: 1");
             _directionBullet = Vector2.right;
         }
         else if (_directionMove.x < 0)
         {
-            Debug.Log("Arranque desde: 2");
             _directionBullet = Vector2.left;
         }
         else if (_directionMove.y > 0)
         {
-            Debug.Log("Arranque desde: 3");
             _directionBullet = Vector2.up;
         }
         else if (_directionMove.y < 0)
         {
-            Debug.Log("Arranque desde: 4");
             _directionBullet = Vector2.down;
         }
         else
         {
-            Debug.Log("Arranque desde: else");
             _directionBullet = Vector2.right;
         }
 
             animator.SetBool("attacking", attacking);
-        Debug.Log("Posicion: "+gun);
     }
 
 }

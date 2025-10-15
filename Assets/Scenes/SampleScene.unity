@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 295594963}
   m_Layer: 0
   m_Name: enemyBase
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,7 +202,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -4166881190847139497, guid: e7cdf1bbc2eff2f4bb19e74ff5336acc, type: 3}
+  m_Sprite: {fileID: -2056804960345484675, guid: 75e61051b02aeee4599a1b6aff6d84c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -250,8 +250,8 @@ BoxCollider2D:
   m_Offset: {x: 0.0148365125, y: -0.0016662031}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24615385, y: 0.24615385}
+    pivot: {x: 0.5, y: -0.04}
+    oldSize: {x: 0.086666666, y: 0.16666667}
     newSize: {x: 0.28, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -432,7 +432,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -9806,7 +9806,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -9881,7 +9881,7 @@ GameObject:
   - component: {fileID: 2035043148}
   m_Layer: 0
   m_Name: boss
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10134,7 +10134,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -10177,7 +10177,7 @@ GameObject:
   - component: {fileID: 2070199631}
   m_Layer: 0
   m_Name: enemyShooting
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

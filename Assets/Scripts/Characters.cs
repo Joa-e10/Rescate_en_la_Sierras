@@ -7,7 +7,7 @@ public abstract class Characters : MonoBehaviour
 {
     // Declaracion de las variables que tienen en conjunto todos los personajes.
 
-    private float lives = 5f;
+    protected float lives = 8f;
     protected float speed = 4;
     protected bool _alive = true;
     protected bool attacking = false;
@@ -37,20 +37,11 @@ public abstract class Characters : MonoBehaviour
         }
     }
 
-    public float GetLives()
-    {
-        return lives;
-    }
-
-    public void SetLives(float livesCharacter) 
-    {
-        lives = livesCharacter;
-    }
-
-    public void attackDisabled() // Metodo "Ataque Deshabilitado"
+    // Metodo "Ataque Deshabilitado" para cambiar el estado del ataque.
+    public void attackDisabled()
     {
 
-        attacking = false; //Cambia el estado del ataque.
+        attacking = false;
     }
 
     protected abstract void die(); // Metodo "morir".
