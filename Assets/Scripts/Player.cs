@@ -14,6 +14,8 @@ public class Player : Characters
     {
         _rb = GetComponent<Rigidbody2D>(); // Toma el componente rigidbody2D del objeto.
         gun = GameObject.Find("gunController").GetComponent<Transform>();
+
+        lives = 10;
     }
 
     public void setShooting(bool state)
@@ -69,7 +71,15 @@ public class Player : Characters
         }
     }
 
+    public void takeHealing(float received) 
+    {
+        if (lives < 10 && _alive)
+        {
+            Debug.Log("El jugador se curó");
+            lives =+ received;
 
+        }
+    }
 
     private void Update()
     {
