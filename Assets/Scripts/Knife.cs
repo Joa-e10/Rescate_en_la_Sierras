@@ -1,14 +1,21 @@
  using UnityEngine;
 
-public class Knife : Weapon
+public class Knife : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision) // Utilizamos este metodo para tomar la colision del objeto y ver si choca con algo.
+
+    private float quantityDamage = 1f;
+    private float range = 4.0f;
+
+    // Verificamos que el objeto colisione con algo.
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Player player = collision.gameObject.GetComponent<Player>(); // Guardamos el componente Player.
-        if (player != null) // Verificamos que el objeto choque con un objeto con el componente Player.
+        Player player = collision.gameObject.GetComponent<Player>();
+
+        // Si el objeto con el que colisiona contiene el componente "Player" llama a la funcion de ese objeto para hacerle daño.
+        if (player != null)
         {
 
-            player.takesDamage(quantityDamage); // Si choca, le hara daño a dicho objeto con el componente Player.
+            player.takesDamage(quantityDamage);
 
             Debug.Log($"Contacto y daño recibido = {quantityDamage}");
 

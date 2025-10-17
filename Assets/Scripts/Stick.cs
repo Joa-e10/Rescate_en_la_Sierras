@@ -1,25 +1,37 @@
 using UnityEngine;
 
-public class Stick : Weapon
+public class Stick : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private float quantityDamage = 1f;
+
+    // Verificamos que el objeto colisione con algo.
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        FinalBoss enemy = collision.gameObject.GetComponent<FinalBoss>(); // Guardamos el componente Enemy.
-        if (enemy != null) // Verificamos que el objeto choque con un objeto con el componente enemy.
+
+        EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
+        EnemyShooting enemy1 = collision.gameObject.GetComponent<EnemyShooting>();
+        FinalBoss enemy2 = collision.gameObject.GetComponent<FinalBoss>();
+
+        // Si el objeto con el que colisiona contiene el componente "EnemyBase" llama a la funcion de ese objeto para hacerle daño.
+        if (enemy != null)
         {
-            enemy.takesDamage(quantityDamage); // Si choca, le hara daño a dicho objeto con el componente Enemy.
+            enemy.takesDamage(quantityDamage);
+            Debug.Log($"Contacto y daño recibido = {quantityDamage}");
+        }
+        // Si el objeto con el que colisiona contiene el componente "EnemyShooting" llama a la funcion de ese objeto para hacerle daño.
+        else if (enemy1 != null)
+        {
+            enemy1.takesDamage(quantityDamage);
+            Debug.Log($"Contacto y daño recibido = {quantityDamage}");
+        }
+        // Si el objeto con el que colisiona contiene el componente "FinalBoss" llama a la funcion de ese objeto para hacerle daño.
+        else if(enemy2 != null)
+        {
+            enemy2.takesDamage(quantityDamage);
             Debug.Log($"Contacto y daño recibido = {quantityDamage}");
         }
     }
-    /*private void OnTriggerEnter2D(Collider2D collision) // Utilizamos este metodo para tomar la colision del objeto y ver si choca con algo.
-    {
-        EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>(); // Guardamos el componente Enemy.
-        if (enemy != null) // Verificamos que el objeto choque con un objeto con el componente enemy.
-        {
-            enemy.takesDamage(quantityDamage); // Si choca, le hara daño a dicho objeto con el componente Enemy.
-            Debug.Log($"Contacto y daño recibido = {quantityDamage}");
-        }
-    }*/
 
     void Start()
     {
