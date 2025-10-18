@@ -9,9 +9,14 @@ public class PlayerInventory : MonoBehaviour
     private int _doorKey;
     private string _nameItem;
     private int valueItem = 0;
+    private Transform _doorExit;
+    private Transform _doorEntrance;
+    private Animals _animals;
     void Start()
     {
-        
+        _doorExit = GameObject.Find("doorExit").GetComponent<Transform>();
+        _doorEntrance = GameObject.Find("doorEntrance").GetComponent<Transform>();
+        _animals = GameObject.Find("puma").GetComponent<Animals>();
     }
 
     //Carga del item "DoorKey" en el inventario
@@ -61,16 +66,77 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    private void AddItem() 
+    public void SetNameKey(string newName) 
     {
+        _nameItem = newName;
+    }
+
+
+    //ANIMALES
+
+    public void RestKey()
+    {
+        // Navegamos por todas las celdas del HUD
         foreach (KeyValuePair<string, int> item in hud)
         {
-            Debug.Log($"En: {item.Key} hay una cantidad de: {item.Value}");
+            //Revisamos donde se encuentra la celda "CageKey" en el HUD.
+            if (item.Key == _nameItem)
+            {
+                //Verifica si el valor actual de la llave  es mayor o igual a 1, en caso de ser asi, se le resta un item y se cambia el estado de "_isFree" del animal.
+                if (item.Value >= 1)
+                {
+                    _cageKey--;
+                    _animals.SetFree(true);
+                }
+            }
         }
+        hud["DoorKey"] = _doorKey;
+    }
+
+    //PUERTAS
+    public void Entry() 
+    {
+
+        // Navegamos por todas las celdas del HUD
+        foreach (KeyValuePair<string, int> item in hud)
+        {
+            //Revisamos donde se encuentra la celda "DoorKey" en el HUD.
+            if (item.Key == "DoorKey") 
+            {
+                //Verifica si el valor actual de la llave  es mayor o igual a 1, en caso de ser asi, se le resta un item y se cambia de posicion al personaje.
+                if (item.Value >= 1) 
+                {
+                    _doorKey--;
+
+                    transform.position = _doorExit.position;
+                }
+            }
+        }
+        hud["DoorKey"] = _doorKey;
+    }
+
+    public void Exit()
+    {
+       /* foreach (KeyValuePair<string, int> item in hud)
+        {
+            if (item.Key == "DoorKey")
+            {
+                if (item.Value <= 0)
+                {
+                    _doorKey++;
+                    transform.position = _doorEntrance.position;
+                }
+            }
+        }
+        hud["DoorKey"] = _doorKey;*/
+        
     }
 
     void Update()
     {
-        AddItem();
+        foreach (KeyValuePair<string, int> item in hud)
+        {
+                Debug.Log($"En la llave: {item.Key} hay {item.Value}.");
+        }
     }
 }
