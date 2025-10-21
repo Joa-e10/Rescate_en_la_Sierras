@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public class FinalBoss : Enemy
@@ -10,6 +11,7 @@ public class FinalBoss : Enemy
     private Vector2 _lastBullet;
     Vector2 directionBullet;
     private Transform gun;
+    
 
 
     void Start()
@@ -17,7 +19,7 @@ public class FinalBoss : Enemy
         _rb = GetComponent<Rigidbody2D>(); // Toma el componente rigidbody2D del objeto.
         _player = GameObject.Find("player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
         gun = GameObject.Find("gunController(2)").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "gunController(2)".
-
+        
 
     }
 
@@ -106,5 +108,7 @@ public class FinalBoss : Enemy
             Attack();
             animator.SetBool("Attacking", attacking);
         }
+
+       
     }
 }
