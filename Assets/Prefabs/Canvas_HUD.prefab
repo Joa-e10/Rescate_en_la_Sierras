@@ -118,8 +118,9 @@ GameObject:
   - component: {fileID: 9110928291181638660}
   - component: {fileID: 4620971919940538300}
   - component: {fileID: 1674933929057896831}
+  - component: {fileID: 1183637989805264724}
   m_Layer: 5
-  m_Name: Fill
+  m_Name: Fill2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,6 +183,19 @@ MonoBehaviour:
   m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1183637989805264724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671900846133011305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a6a4daedda52141afa6363439984c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UiManager
+  barraDeVidaPlayer: {fileID: 0}
 --- !u!1 &1381751239610691215
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,6 +582,7 @@ GameObject:
   - component: {fileID: 2019807505659384769}
   - component: {fileID: 933267682999672221}
   - component: {fileID: 8595248607274684642}
+  - component: {fileID: 6903558299623643795}
   m_Layer: 5
   m_Name: BossLife
   m_TagString: Untagged
@@ -634,6 +649,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6903558299623643795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6307363948641798152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66d0c3534631d141ae118a3d6a5eeef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BarraDeVidaBoss
+  barraDeVidaBoss: {fileID: 1674933929057896831}
 --- !u!1 &6660450595678665348
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,8 +673,9 @@ GameObject:
   - component: {fileID: 6132713441114141785}
   - component: {fileID: 9186411480794334944}
   - component: {fileID: 8823394333293043854}
+  - component: {fileID: 8595354984672943095}
   m_Layer: 5
-  m_Name: Background
+  m_Name: PlayerLife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -711,6 +740,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8595354984672943095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6660450595678665348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a6a4daedda52141afa6363439984c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UiManager
+  barraDeVidaPlayer: {fileID: 6406218180206563370}
 --- !u!1 &6685664994650238408
 GameObject:
   m_ObjectHideFlags: 0

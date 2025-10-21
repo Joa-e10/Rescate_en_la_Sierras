@@ -7,7 +7,7 @@ public abstract class Characters : MonoBehaviour
 {
     // Declaracion de las variables que tienen en conjunto todos los personajes.
 
-    protected float lives = 8f;
+    public float lives = 8f;
     protected float speed = 4;
     protected bool _alive = true;
     protected bool attacking = false;
