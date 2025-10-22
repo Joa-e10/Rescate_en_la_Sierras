@@ -44,12 +44,12 @@ public abstract class Enemy : Characters
 
     protected override void die()
     {
-        if (_alive == false) //Condicional para saber si el personaje se encuentra vivo para destruirlo o no.
-        {
-
-             Destroy(gameObject);
-
-            }
-        }
+       if (_alive == false) //Condicional para saber si el personaje se encuentra vivo para destruirlo o no.
+       {
+            //_liveBoss.SetNewAlive(_alive);
+            //_liveBoss.gameObject.SetActive(false);
+           Destroy(gameObject);
+       }
     }
+}
 

@@ -9,7 +9,7 @@ public abstract class Characters : MonoBehaviour
 
     public float lives = 8f;
     protected float speed = 4;
-    protected bool _alive = true;
+    public bool _alive = true;
     protected bool attacking = false;
     protected bool shooting = false;
     protected Rigidbody2D _rb;
