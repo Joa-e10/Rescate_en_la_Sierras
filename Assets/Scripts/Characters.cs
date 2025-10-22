@@ -16,12 +16,11 @@ public abstract class Characters : MonoBehaviour
     public Animator animator;
     public SpriteRenderer sprite;
 
-
     private void Start()
     {
     }
 
-   public void takesDamage(float received) // metodo "recibir daño".
+    public void takesDamage(float received) // metodo "recibir daño".
     {
 
         if (lives <= 1) //Condicional para saber si el personaje esta vivo (vidas mayor a 1) para recibir el daño. 

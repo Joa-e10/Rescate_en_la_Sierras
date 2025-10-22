@@ -11,6 +11,22 @@ public class EnemyBase : Enemy
         speed = 2;
     }
 
+    protected override void moveEnemy()
+    {
+        if (!attacking && !shooting)
+        {
+
+            distanceToPlayer = Vector2.Distance(transform.position, _player.position);
+
+            if (distanceToPlayer < detectionRadius)
+            {
+                agent.SetDestination(_player.transform.position);
+            }
+
+        }
+
+    }
+
     protected override void Attack()
     {
 

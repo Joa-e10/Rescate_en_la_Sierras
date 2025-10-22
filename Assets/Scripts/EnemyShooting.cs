@@ -15,6 +15,22 @@ public class EnemyShooting : Enemy
         speed = 1;
     }
 
+    protected override void moveEnemy()
+    {
+        if (!attacking && !shooting)
+        {
+
+            distanceToPlayer = Vector2.Distance(transform.position, _player.position);
+
+            if (distanceToPlayer < detectionRadius)
+            {
+                agent.SetDestination(_player.transform.position);
+            }
+
+        }
+
+    }
+
     protected override void Attack()
     {
         // Si se cumplen las 2 condiciones el enemigo puede atacar.

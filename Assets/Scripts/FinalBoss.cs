@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 
 public class FinalBoss : Enemy
@@ -18,7 +19,28 @@ public class FinalBoss : Enemy
         _player = GameObject.Find("player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
         gun = GameObject.Find("gunController(2)").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "gunController(2)".
 
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+    }
 
+
+    protected override void moveEnemy()
+    {
+            Debug.Log("Se esta moviendo");
+            distanceToPlayer = Vector2.Distance(transform.position, _player.position);
+        agent.speed = 4;
+        if (distanceToPlayer < detectionRadius)
+            {
+                
+                agent.SetDestination(_player.transform.position);
+
+            if (distanceToPlayer <= 4) {
+                
+                agent.speed = 0;
+            }
+
+            }
     }
 
     protected override void Attack() 
@@ -91,9 +113,8 @@ public class FinalBoss : Enemy
     void Update()
     {
        
-
-        Debug.Log(" direccion OFICIAL: "+_lastBullet);
         moveEnemy();
+        
         Attack();
 
         // Si se cumplen las dos condiciones el jefe cabiara de arma.
