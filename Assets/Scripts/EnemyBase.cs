@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBase : Enemy
 {
@@ -8,19 +9,25 @@ public class EnemyBase : Enemy
         _rb = GetComponent<Rigidbody2D>(); // Toma el componente rigidbody2D del objeto.
         _player = GameObject.Find("player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
 
-        speed = 2;
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+
+        agent.speed = 3;
     }
 
     protected override void moveEnemy()
     {
-        if (!attacking && !shooting)
+        if (!attacking)
         {
-
             distanceToPlayer = Vector2.Distance(transform.position, _player.position);
 
             if (distanceToPlayer < detectionRadius)
             {
-                agent.SetDestination(_player.transform.position);
+
+                Debug.Log("la nueva direccion devuelve: " + distanceToPlayer);
+                agent.SetDestination(_player.position);
+
             }
 
         }
