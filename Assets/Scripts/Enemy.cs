@@ -1,12 +1,14 @@
 using UnityEngine;
+using UnityEngine.AI;
 using static UnityEngine.Rendering.DebugUI;
 
 public abstract class Enemy : Characters
 {
     //Declaracion de las variables que solo utilizaran los enemigos.
-    protected float detectionRadius = 10.0f;
+    protected float detectionRadius = 10;
     protected Vector2 movement;
-    protected Transform _player;
+    [SerializeField] protected Transform _player;
+    protected NavMeshAgent agent;
     public GameObject bulletEnemy;
     protected float distanceToPlayer;
     protected float cooldown = 0;
@@ -14,13 +16,13 @@ public abstract class Enemy : Characters
      
     void Start()
     {
-    }
-    
-        
-    protected void moveEnemy()
-    {
 
-            distanceToPlayer = Vector2.Distance(transform.position, _player.position); // Tomamos el total de la distancia que tiene el objeto del player.
+    }
+
+
+    protected abstract void moveEnemy();
+
+          /*  distanceToPlayer = Vector2.Distance(transform.position, _player.position); // Tomamos el total de la distancia que tiene el objeto del player.
             if (distanceToPlayer < detectionRadius && distanceToPlayer >= 3) // Condicional donde comparamos si la distancia total hacia el player es menor a el rango del objeto.
             {
                 Vector2 direction = (_player.position - transform.position).normalized; // Declaracion para mover el objeto en relacion a la posicion del player.
@@ -32,8 +34,8 @@ public abstract class Enemy : Characters
                 movement = Vector2.zero;
             }
 
-            _rb.linearVelocity = movement * speed; // Generamos el movimiento del objeto.
-    }
+            _rb.linearVelocity = movement * speed; // Generamos el movimiento del objeto.*/
+    
 
 
     protected abstract void Attack();

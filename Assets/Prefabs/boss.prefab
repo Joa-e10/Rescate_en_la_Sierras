@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 377109943186074525}
   - component: {fileID: 789194599993478804}
   - component: {fileID: 8412592374144648824}
+  - component: {fileID: 1461328460383825005}
   m_Layer: 0
   m_Name: boss
   m_TagString: Enemy
@@ -176,7 +177,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 88e55c816fc3a7346aec36bf4bc032b5, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -279,7 +280,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 2310042201572043050, guid: 840d01bb3c5614d449049bea3f47b45d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -327,4 +328,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FinalBoss
   animator: {fileID: 789194599993478804}
   sprite: {fileID: 377109943186074525}
+  _player: {fileID: 0}
   bulletEnemy: {fileID: 4354545182059834105, guid: 3a5e27d3cb832d84cb55c53e41070e1d, type: 3}
+--- !u!195 &1461328460383825005
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6859395623716295191}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1.15
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 6.4
+  m_BaseOffset: 3.2
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

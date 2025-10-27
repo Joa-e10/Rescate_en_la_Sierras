@@ -1,26 +1,109 @@
-using System;
+using System.Collections;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 
 public class FinalBoss : Enemy
 {
+    
     private float _cooldownMax;
     private bool onCooldown2 = false;
-    private Vector2 _isStill;
+    private bool _isAvoiding;
     private Vector2 _lastBullet;
     Vector2 directionBullet;
     private Transform gun;
-
-
     void Start()
     {
+        
         _rb = GetComponent<Rigidbody2D>(); // Toma el componente rigidbody2D del objeto.
         _player = GameObject.Find("player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
         gun = GameObject.Find("gunController(2)").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "gunController(2)".
+        detectionRadius = 10.0f;
 
-
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
 
+    void Update()
+    {
+            moveEnemy();
+
+
+
+        Attack();
+
+/*        // Si se cumplen las dos condiciones el jefe cabiara de arma.
+        if (lives <= 5 && attacking == false)
+        {
+
+            Debug.Log("La vida del jefe es menor a 5! Dispara");
+
+            shooting = true;
+            Attack();
+            animator.SetBool("Attacking", attacking);
+        }*/
+    }
+
+
+    protected override void moveEnemy()
+    {
+        distanceToPlayer = Vector2.Distance(transform.position, _player.position);
+        agent.speed = 4;
+
+        if (lives <= 5)
+        {
+            if (distanceToPlayer < detectionRadius)
+            {
+
+                if (distanceToPlayer <= 5)
+                {
+                    Vector3 direction = (transform.position - _player.position);
+                    Vector3 newDirection = transform.position + direction.normalized * 2f;
+                    agent.SetDestination(newDirection);
+                    
+                }
+
+            }
+            else 
+            {
+
+                Debug.Log("la nueva direccion devuelve: " + distanceToPlayer);
+                agent.SetDestination(_player.position);
+
+            }
+
+        }
+        else 
+        {
+
+            if (shooting || attacking)
+            {
+                Debug.Log("Se No esta moviendo y esta atacando o disparando");
+            }
+            else
+            {
+                Debug.Log("Se esta moviendo");
+                if (distanceToPlayer < detectionRadius)
+                {
+                    if (distanceToPlayer > 2)
+                    {
+                        agent.SetDestination(_player.transform.position);
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        
+            
+    }
+
+    //agent.isStopped = true; ANOTADOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
     protected override void Attack() 
     {
         //Si la distancia del jugador es menor o igual a 10 puede atacar.
@@ -88,23 +171,9 @@ public class FinalBoss : Enemy
             }
         }
     }
-    void Update()
+    void OnDrawGizmosSelected()
     {
-       
-
-        Debug.Log(" direccion OFICIAL: "+_lastBullet);
-        moveEnemy();
-        Attack();
-
-        // Si se cumplen las dos condiciones el jefe cabiara de arma.
-        if (lives <= 5 && attacking == false)
-        {
-
-            Debug.Log("La vida del jefe es menor a 5! Dispara");
-            
-            shooting = true;
-            Attack();
-            animator.SetBool("Attacking", attacking);
-        }
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }
