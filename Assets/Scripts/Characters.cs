@@ -9,19 +9,18 @@ public abstract class Characters : MonoBehaviour
 
     public float lives = 8f;
     protected float speed = 4;
-    protected bool _alive = true;
+    public bool _alive = true;
     protected bool attacking = false;
     protected bool shooting = false;
     protected Rigidbody2D _rb;
     public Animator animator;
     public SpriteRenderer sprite;
 
-
     private void Start()
     {
     }
 
-   public void takesDamage(float received) // metodo "recibir daño".
+    public void takesDamage(float received) // metodo "recibir daño".
     {
 
         if (lives <= 1) //Condicional para saber si el personaje esta vivo (vidas mayor a 1) para recibir el daño. 

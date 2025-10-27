@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyShooting : Enemy
 {
@@ -12,7 +13,29 @@ public class EnemyShooting : Enemy
         _player = GameObject.Find("player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
         gun = GameObject.Find("gunController(1)").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "gunController(1)".
 
-        speed = 1;
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+
+        agent.speed = 1;
+    }
+
+    protected override void moveEnemy()
+    {
+        if (!shooting)
+        {
+            distanceToPlayer = Vector2.Distance(transform.position, _player.position);
+
+            if (distanceToPlayer < detectionRadius)
+            {
+
+                    Debug.Log("la nueva direccion devuelve: " + distanceToPlayer);
+                    agent.SetDestination(_player.position);
+
+            }
+
+        }
+
     }
 
     protected override void Attack()
