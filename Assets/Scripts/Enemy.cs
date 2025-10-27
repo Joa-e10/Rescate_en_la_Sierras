@@ -5,7 +5,7 @@ using static UnityEngine.Rendering.DebugUI;
 public abstract class Enemy : Characters
 {
     //Declaracion de las variables que solo utilizaran los enemigos.
-    protected float detectionRadius = 10.0f;
+    protected float detectionRadius = 10;
     protected Vector2 movement;
     [SerializeField] protected Transform _player;
     protected NavMeshAgent agent;

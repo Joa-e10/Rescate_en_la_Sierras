@@ -19,12 +19,27 @@ public class EnemyShooting : Enemy
     {
         if (!attacking && !shooting)
         {
-
             distanceToPlayer = Vector2.Distance(transform.position, _player.position);
-
+         
             if (distanceToPlayer < detectionRadius)
             {
-                agent.SetDestination(_player.transform.position);
+
+                if (distanceToPlayer <= 5)
+                {
+                    shooting = true;
+                    Vector3 direction = (transform.position - _player.position);
+                    Vector3 newDirection = transform.position + direction.normalized * 2f;
+                    agent.SetDestination(newDirection);
+
+                }
+
+            }
+            else
+            {
+
+                Debug.Log("la nueva direccion devuelve: " + distanceToPlayer);
+                agent.SetDestination(_player.position);
+
             }
 
         }
