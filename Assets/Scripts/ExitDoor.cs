@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class ExitDoor : MonoBehaviour
@@ -14,14 +16,12 @@ public class ExitDoor : MonoBehaviour
             inventory.Exit();
         }
     }
-
     void Start()
     {
     }
 
-
     void Update()
     {
-        
+
     }
 }

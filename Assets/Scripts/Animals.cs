@@ -3,8 +3,9 @@ using UnityEngine;
 public class Animals : MonoBehaviour
 {
     private string _nameKey = "CageKey";
+    protected string nameAnimal;
     private bool _isFree;
-    private SpriteRenderer _spritePuma;
+    protected SpriteRenderer _spriteAnimal;
     public Sprite animalFree;
 
     // Verificamos que el objeto colisione con algo.
@@ -12,16 +13,17 @@ public class Animals : MonoBehaviour
     {
         PlayerInventory inventory = collision.gameObject.GetComponent<PlayerInventory>();
 
-        // Si el objeto con el que colisiona contiene el componente "PlayerInventory" llama a la funcion de ese objeto para restar el objeto y actualizar el valor en el hud.
+        // Si el objeto con el que colisiona contiene el componente "PlayerInventory" llama a la funcion de ese objeto para restar el item y actualizar el valor en el hud.
         if (inventory != null)
         {
+            inventory.SetNameAnimal(nameAnimal);
             inventory.SetNameKey(_nameKey);
             inventory.RestKey();
 
             //Si el animal es libre se le cambia de sprite.
             if (_isFree) 
             {
-                _spritePuma.sprite = animalFree;
+                _spriteAnimal.sprite = animalFree;
             }
 
 
@@ -35,7 +37,6 @@ public class Animals : MonoBehaviour
 
     void Start()
     {
-        _spritePuma = GetComponent<SpriteRenderer>();
     }
 
     void Update()
