@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,12 +12,14 @@ public class PlayerInventory : MonoBehaviour
     private int valueItem = 0;
     private Transform _doorExit;
     private Transform _doorEntrance;
-    private Animals _animals;
+    public Animals _animals;
+    private string _nameAnimal;
+    private bool _inTheRoom = false;
     void Start()
     {
         _doorExit = GameObject.Find("doorExit").GetComponent<Transform>();
         _doorEntrance = GameObject.Find("doorEntrance").GetComponent<Transform>();
-        _animals = GameObject.Find("puma").GetComponent<Animals>();
+        
     }
 
     //Carga del item "DoorKey" en el inventario
@@ -47,7 +50,7 @@ public class PlayerInventory : MonoBehaviour
     //Carga del item "CageKage" en el inventario
     public void AddCageKey()
     {
-        _cageKey++;
+        _cageKey++; 
 
         // Si la el valor de _cageKey es distinto a 1 va a cargar el valor de la variable _cageKey en Value del hud.
         if (_cageKey != 1)
@@ -71,6 +74,10 @@ public class PlayerInventory : MonoBehaviour
         _nameItem = newName;
     }
 
+    public void SetNameAnimal(string newName)
+    {
+        _nameAnimal = newName;
+    }
 
     //ANIMALES
 
@@ -85,18 +92,19 @@ public class PlayerInventory : MonoBehaviour
                 //Verifica si el valor actual de la llave  es mayor o igual a 1, en caso de ser asi, se le resta un item y se cambia el estado de "_isFree" del animal.
                 if (item.Value >= 1)
                 {
+                    _animals = GameObject.Find(_nameAnimal).GetComponent<Animals>();
                     _cageKey--;
                     _animals.SetFree(true);
                 }
             }
         }
-        hud["DoorKey"] = _doorKey;
+        hud["CageKey"] = _cageKey;
     }
 
     //PUERTAS
     public void Entry() 
     {
-
+        
         // Navegamos por todas las celdas del HUD
         foreach (KeyValuePair<string, int> item in hud)
         {
@@ -104,10 +112,10 @@ public class PlayerInventory : MonoBehaviour
             if (item.Key == "DoorKey") 
             {
                 //Verifica si el valor actual de la llave  es mayor o igual a 1, en caso de ser asi, se le resta un item y se cambia de posicion al personaje.
-                if (item.Value >= 1) 
+                if (item.Value >= 1 && _inTheRoom == false) 
                 {
+                    StartCoroutine(DepartureTime());
                     _doorKey--;
-
                     transform.position = _doorExit.position;
                 }
             }
@@ -117,26 +125,47 @@ public class PlayerInventory : MonoBehaviour
 
     public void Exit()
     {
-       /* foreach (KeyValuePair<string, int> item in hud)
+    
+        foreach (KeyValuePair<string, int> item in hud)
         {
             if (item.Key == "DoorKey")
             {
-                if (item.Value <= 0)
+                if (item.Value <= 0 && _inTheRoom == true)
                 {
+                    StartCoroutine(DepartureTime());
                     _doorKey++;
                     transform.position = _doorEntrance.position;
+
                 }
             }
         }
-        hud["DoorKey"] = _doorKey;*/
+        hud["DoorKey"] = _doorKey;
         
     }
 
     void Update()
     {
-        foreach (KeyValuePair<string, int> item in hud)
+       /* foreach (KeyValuePair<string, int> item in hud)
         {
                 Debug.Log($"En la llave: {item.Key} hay {item.Value}.");
+        }*/
+    }
+
+    private IEnumerator DepartureTime()
+    {
+        if (_inTheRoom == false)
+        {
+            Debug.Log("Inicia la corrutina de entrada");
+            yield return new WaitForSeconds(1f);
+            _inTheRoom = true;
         }
+        else
+        {
+            Debug.Log("Inicia la corrutina de salida");
+            yield return new WaitForSeconds(1f);
+            _inTheRoom = false;
+        }
+        Debug.Log("Termina la corrutina");
+
     }
 }
