@@ -173,7 +173,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -184,7 +184,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -326,6 +326,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50bdf78262628354a86ae0e76cf010e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FinalBoss
+  lives: 8
+  _alive: 1
   animator: {fileID: 789194599993478804}
   sprite: {fileID: 377109943186074525}
   _player: {fileID: 0}
@@ -339,7 +341,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6859395623716295191}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.15
+  m_Radius: 1.14
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -348,7 +350,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 6.4
-  m_BaseOffset: 3.2
+  m_Height: 4.19
+  m_BaseOffset: 2.87
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class EnemyBase : Enemy
 {
-
+    
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>(); // Toma el componente rigidbody2D del objeto.
@@ -16,6 +16,8 @@ public class EnemyBase : Enemy
         agent.speed = 3;
     }
 
+    
+
     protected override void moveEnemy()
     {
         if (!attacking)
@@ -25,13 +27,13 @@ public class EnemyBase : Enemy
             if (distanceToPlayer < detectionRadius)
             {
 
-                Debug.Log("la nueva direccion devuelve: " + distanceToPlayer);
-                agent.SetDestination(_player.position);
 
+                agent.SetDestination(_player.position);
+              //spawner.SetPosition(transform.position);
             }
 
         }
-
+        
     }
 
     protected override void Attack()

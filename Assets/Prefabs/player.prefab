@@ -243,6 +243,7 @@ GameObject:
   - component: {fileID: 7477660585353017222}
   - component: {fileID: 7778180915957450867}
   - component: {fileID: 6211993940146387220}
+  - component: {fileID: 6219254632354603006}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -411,6 +412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24188832711d53446826ab97ca48020a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  lives: 8
+  _alive: 1
   animator: {fileID: 6211993940146387220}
   sprite: {fileID: 7484449648511643801}
   bullet: {fileID: 7314448973817176323, guid: 9a02d03a3a93b4b4688f0d7a48bc2071, type: 3}
@@ -466,6 +469,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6219254632354603006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7097362016633832890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b8f93e843468643aa13e72692dbb9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
+  _animals: {fileID: 0}
 --- !u!1 &7205207044932755438
 GameObject:
   m_ObjectHideFlags: 0

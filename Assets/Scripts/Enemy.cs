@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.Rendering.DebugUI;
+
 
 public abstract class Enemy : Characters
 {
@@ -13,7 +14,7 @@ public abstract class Enemy : Characters
     protected float distanceToPlayer;
     protected float cooldown = 0;
     protected bool onCooldown = false;
-     
+
     void Start()
     {
 
@@ -40,18 +41,14 @@ public abstract class Enemy : Characters
 
     protected abstract void Attack();
 
-    void Update()
-    {
-    }
-
     protected override void die()
     {
-       if (_alive == false) //Condicional para saber si el personaje se encuentra vivo para destruirlo o no.
-       {
-            //_liveBoss.SetNewAlive(_alive);
-            //_liveBoss.gameObject.SetActive(false);
-           Destroy(gameObject);
-       }
+       //pawner.SetAlive(_alive);   
+        if (_alive == false) //Condicional para saber si el personaje se encuentra vivo para destruirlo o no.
+        {
+            
+            Destroy(gameObject);
+        }
     }
 }
 
