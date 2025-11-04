@@ -3,10 +3,10 @@ using UnityEngine;
 public class BulletEnemy : MonoBehaviour
 {
     private float _damage = 1f;
-    private float _resetTime = 2f;
+    private float _resetTime = 2.5f;
     private Vector2 _direction;
     private int speed = 8;
-    private Transform _player;
+    private Player _player;
     private Rigidbody2D _rb;
 
     void Start()
@@ -28,9 +28,9 @@ public class BulletEnemy : MonoBehaviour
         // Si el objeto con el que colisiona contiene el componente "Player" llama a la funcion de ese objeto para hacerle daño.
         if (player != null)
         {
-            Debug.Log("le dispare");
+            Debug.Log("le dimos al player");
             player.takesDamage(_damage);
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 
@@ -39,7 +39,7 @@ public class BulletEnemy : MonoBehaviour
     {
         // Iniciamos la velocidad y inicia el conteo del tiempo.
         _rb.linearVelocity = _direction * speed;
-        Debug.Log("Arranque desde:" + _direction);
+        //Debug.Log("Arranque desde:" + _direction);
         _resetTime -= Time.deltaTime;
 
 

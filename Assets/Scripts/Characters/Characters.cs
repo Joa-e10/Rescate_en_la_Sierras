@@ -22,14 +22,14 @@ public abstract class Characters : MonoBehaviour
 
     public void takesDamage(float received) // metodo "recibir daño".
     {
-
         if (lives <= 1) //Condicional para saber si el personaje esta vivo (vidas mayor a 1) para recibir el daño. 
         {
             _alive = false; //En caso contrario, se le cambiara el estado de "vivo" a falso y pasara a ser destruido.
             die();
 
         }
-        else { //si no, se le restara el daño recibido a "lives".
+        else
+        { //si no, se le restara el daño recibido a "lives".
 
             lives = lives - received;
 
@@ -41,6 +41,12 @@ public abstract class Characters : MonoBehaviour
     {
 
         attacking = false;
+    }
+
+    public void ShootDisabled()
+    {
+
+        shooting = false;
     }
 
     protected abstract void die(); // Metodo "morir".

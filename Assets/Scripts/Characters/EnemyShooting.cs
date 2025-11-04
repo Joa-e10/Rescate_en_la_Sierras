@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,7 +18,7 @@ public class EnemyShooting : Enemy
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
-        agent.speed = 1;
+        agent.speed = 2;
     }
 
     protected override void moveEnemy()
@@ -41,37 +42,29 @@ public class EnemyShooting : Enemy
     protected override void Attack()
     {
         // Si se cumplen las 2 condiciones el enemigo puede atacar.
-        if (distanceToPlayer <= 5 && onCooldown == false)
+        if (distanceToPlayer < detectionRadius && !shooting)
         {
-            Debug.Log("El enemigo esta disparando");
-            shooting = true;
-
-            Vector2 direction = (_player.position - transform.position);
-
-            GameObject generatedBullet = Instantiate(bulletEnemy, gun.transform.position, Quaternion.identity);
-            BulletEnemy bulletComponent = generatedBullet.GetComponent<BulletEnemy>();
-            bulletComponent.setDirectionBullet(direction);
-            _lastBullet = movement;
-            onCooldown = true; // Se activa el "cooldown"  
+            StartCoroutine(ShootWithCooldown());
         }
 
-        // Si el cooldown esta activo empieza el conteo del mismo.
-        if (onCooldown)
-        {
-            shooting = false;
-            Debug.Log("Arranco el cooldown");
-            cooldown = cooldown + Time.deltaTime;
+    }
 
-            //Si el cooldown llega a 1 o es mayor se desactiva y se resetea el contador.
-            if (cooldown >= 1f)
-            {
-                onCooldown = false;
+    protected IEnumerator ShootWithCooldown()
+    {
+        shooting = true;
+        Debug.Log("El enemigo esta disparando");
 
-                cooldown = 0;
-                Debug.Log("Se restauro el cooldown");
-            }
-        }
+        Vector2 direction = (_player.position - transform.position);
+        _lastBullet = direction;
+        GameObject generatedBullet = Instantiate(bulletEnemy, gun.transform.position, Quaternion.identity);
+        BulletEnemy bulletComponent = generatedBullet.GetComponent<BulletEnemy>();
+        bulletComponent.setDirectionBullet(_lastBullet);
+        //animator.SetBool("Shooting", shooting);
 
+        yield return new WaitForSeconds(1.5f);
+
+        shooting = false;
+        //animator.SetBool("Shooting", shooting);
     }
 
     void Update()

@@ -23,6 +23,8 @@ public class Player : Characters
         shooting = state;
     }
 
+    
+
     private void OnMove(InputValue inputValue)  // Utilizamos el metodo OnMove designado para la accion de mover.
     {
         
@@ -107,5 +109,4 @@ public class Player : Characters
 
             animator.SetBool("attacking", attacking);
     }
-
 }

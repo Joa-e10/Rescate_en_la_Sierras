@@ -1,9 +1,9 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyBase : Enemy
 {
-    
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>(); // Toma el componente rigidbody2D del objeto.
@@ -15,7 +15,6 @@ public class EnemyBase : Enemy
 
         agent.speed = 3;
     }
-
     
 
     protected override void moveEnemy()
@@ -29,7 +28,6 @@ public class EnemyBase : Enemy
 
 
                 agent.SetDestination(_player.position);
-              //spawner.SetPosition(transform.position);
             }
 
         }
@@ -40,34 +38,9 @@ public class EnemyBase : Enemy
     {
 
         // Si se cumplen las 2 condiciones el enemigo puede atacar.
-        if (distanceToPlayer <= 3 && onCooldown == false)
+        if (distanceToPlayer <= 4 && !attacking)
         {
-            attacking = true;
-            animator.SetBool("attacking", attacking);
-            Debug.Log("EL ENEMIGO ATACAAA!!");
-
-
-            onCooldown = true; // Se activa el "cooldown" 
-
-
-        }
-
-        // Si el cooldown esta activo empieza el conteo del mismo.
-        if (onCooldown)
-        {
-            Debug.Log("Arranco el cooldown");
-            cooldown = cooldown + Time.deltaTime;
-            animator.SetBool("attacking", attacking);
-
-            //Si el cooldown llega a 2 o es mayor se desactiva y se resetea el contador.
-            if (cooldown >= 2f)
-            {
-
-                onCooldown = false; 
-
-                cooldown = 0;
-                Debug.Log("Se restauro el cooldown");
-            }
+            StartCoroutine(AttackWithCooldown());
         }
 
     }
@@ -76,8 +49,20 @@ public class EnemyBase : Enemy
     {
         moveEnemy();
         Attack();
-        //Debug.Log($"Vida total: {GetLives()}");
     }
+
+    protected IEnumerator AttackWithCooldown()
+    {
+        Debug.Log("ENTRO A ATACAR EL ENEMY");
+        attacking = true;
+        animator.SetBool("attacking", attacking); // Activa la animacion de ataque
+
+        yield return new WaitForSeconds(2f);
+        Debug.Log("Salio de la corrutina");
+        attacking = false;
+        animator.SetBool("attacking", attacking);
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
