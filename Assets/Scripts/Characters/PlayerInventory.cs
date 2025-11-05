@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -168,4 +169,6 @@ public class PlayerInventory : MonoBehaviour
         Debug.Log("Termina la corrutina");
 
     }
+
+    
 }

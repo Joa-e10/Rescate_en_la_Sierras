@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
@@ -6,13 +7,10 @@ using static UnityEngine.GraphicsBuffer;
 
 public class FinalBoss : Enemy
 {
-    
-    private float _cooldownMax;
-    private bool onCooldown2 = false;
-    private bool _isAvoiding;
     private Vector2 _lastBullet;
     Vector2 directionBullet;
     private Transform gun;
+    private int amountBullet;
     void Start()
     {
         
@@ -25,25 +23,11 @@ public class FinalBoss : Enemy
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
-
+    
     void Update()
     {
             moveEnemy();
-
-
-
-        Attack();
-
-/*        // Si se cumplen las dos condiciones el jefe cabiara de arma.
-        if (lives <= 5 && attacking == false)
-        {
-
-            Debug.Log("La vida del jefe es menor a 5! Dispara");
-
-            shooting = true;
             Attack();
-            animator.SetBool("Attacking", attacking);
-        }*/
     }
 
 
@@ -54,6 +38,7 @@ public class FinalBoss : Enemy
 
         if (lives <= 5)
         {
+          
             if (distanceToPlayer < detectionRadius)
             {
 
@@ -69,13 +54,13 @@ public class FinalBoss : Enemy
             else 
             {
 
-                Debug.Log("la nueva direccion devuelve: " + distanceToPlayer);
+                //Debug.Log("la nueva direccion devuelve: " + distanceToPlayer);
                 agent.SetDestination(_player.position);
 
             }
 
         }
-        else 
+        else
         {
 
             if (shooting || attacking)
@@ -103,74 +88,64 @@ public class FinalBoss : Enemy
             
     }
 
-    //agent.isStopped = true; ANOTADOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    //agent.isStopped = true;
     protected override void Attack() 
     {
         //Si la distancia del jugador es menor o igual a 10 puede atacar.
-        if (distanceToPlayer <= 10)
+        if (distanceToPlayer <= detectionRadius)
         {
-
-            //Si la distancia del jugador es menor o igual a 3 puede atacar a melee.
-            if (distanceToPlayer <= 3)
+            if (distanceToPlayer <= 4) 
             {
-
-                // Si se cumplen las 2 condiciones el enemigo puede atacar.
-                if (shooting == false && onCooldown == false)
+                if (!attacking && shooting == false)
                 {
-                    Debug.Log("ENTRO A ATACAR EL ENEMY");
-                    attacking = true;
-                    animator.SetBool("Attacking", attacking); // Activa la animacion de ataque
-                    onCooldown = true; // Se activa el "cooldown"
-                }
-
-                // Si el cooldown esta activo empieza el conteo del mismo.
-                if (onCooldown)
-                {
-                    Debug.Log("Arranco el cooldown");
-                    cooldown = cooldown + Time.deltaTime;
-                    animator.SetBool("Attacking", attacking); // Desactivamos la animacion de ataque.
-
-                    //Si el cooldown llega a 2 o es mayor se desactiva y se resetea el contador.
-                    if (cooldown >= 2.0f)
-                    {
-                        Debug.Log("entro en cooldown el machete");
-                        onCooldown = false;
-
-                        cooldown = 0;
-                        Debug.Log("Se restauro el cooldown");
-                    }
+                    StartCoroutine(AttackWithCooldown());
                 }
             }
-//LOGICA DEL DISPARO.
 
-            // Si se cumplen las 2 condiciones el enemigo puede disparar.
-            if (shooting && onCooldown == false)
+            //LOGICA DEL DISPARO.
+            if (lives <= 5) 
             {
-                Vector2 direction = (_player.position - transform.position);
-                _lastBullet = direction;
-                GameObject generatedBullet = Instantiate(bulletEnemy, gun.transform.position, Quaternion.identity);
-                BulletEnemy bulletComponent = generatedBullet.GetComponent<BulletEnemy>();
-                bulletComponent.setDirectionBullet(direction);
-                onCooldown2 = true; //Se activa el "cooldown2"
-            }
+                // Si se cumplen las 2 condiciones el enemigo puede disparar.
 
-            // Si el cooldown2 esta activo empieza el conteo del mismo.
-            if (onCooldown2)
-            {
-                shooting = false;
-                Debug.Log("Arranco el cooldown de la pistola");
-                cooldown = cooldown + Time.deltaTime;
-
-                //Si el cooldown llega a 1 o es mayor se desactiva y se resetea el contador.
-                if (cooldown >= 1)
+                if (!shooting && attacking == false)
                 {
-                    onCooldown = false;
-                    cooldown = 0;
-                    Debug.Log("Se restauro el cooldown");
+                    StartCoroutine(ShootWithCooldown());
                 }
             }
         }
     }
+
+    protected IEnumerator ShootWithCooldown()
+    {
+        shooting = true;
+        Debug.Log("El enemigo esta disparando");
+
+        Vector2 direction = (_player.position - transform.position);
+        _lastBullet = direction;
+        GameObject generatedBullet = Instantiate(bulletEnemy, gun.transform.position, Quaternion.identity);
+        BulletEnemy bulletComponent = generatedBullet.GetComponent<BulletEnemy>();
+        bulletComponent.setDirectionBullet(_lastBullet);
+        animator.SetBool("Shooting", shooting);
+        amountBullet++;
+
+        yield return new WaitForSeconds(1.5f);
+
+        shooting = false;
+        animator.SetBool("Shooting", shooting);
+    }
+
+    protected IEnumerator AttackWithCooldown()
+    {
+        Debug.Log("ENTRO A ATACAR EL ENEMY");
+        attacking = true;
+        animator.SetBool("Attacking", attacking); // Activa la animacion de ataque
+
+        yield return new WaitForSeconds(2f);
+        Debug.Log("Salio de la corrutina");
+        attacking = false;
+        animator.SetBool("Attacking", attacking);
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
