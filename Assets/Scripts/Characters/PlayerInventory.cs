@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerInventory : MonoBehaviour
     private int _doorKey;
     private string _nameItem;
     private int valueItem = 0;
+    private CanvasManager _canvas;
     private Transform _doorExit;
     private Transform _doorEntrance;
     public Animals _animals;
@@ -20,11 +22,28 @@ public class PlayerInventory : MonoBehaviour
     {
         _doorExit = GameObject.Find("doorExit").GetComponent<Transform>();
         _doorEntrance = GameObject.Find("doorEntrance").GetComponent<Transform>();
-        
+        _canvas = GameObject.Find("Canvas_HUD").GetComponent<CanvasManager>();
+    }
+
+    void Update()
+    {
+        foreach (KeyValuePair<string, int> item in hud)
+        {
+            Debug.Log($"La llave es: {item.Key} y el valor que tiene es {item.Value}");
+            if (item.Key == "CageKey")
+            {
+                _canvas.PlayerSlot1(item.Value);
+
+            }
+            else if(item.Key == "DoorKey")
+            {
+                _canvas.PlayerSlot2(item.Value);
+            }
+        }
     }
 
     //Carga del item "DoorKey" en el inventario
-    public void AddDoorKey() 
+    public void AddDoorKey()
     {
         _doorKey++;
 
@@ -42,16 +61,16 @@ public class PlayerInventory : MonoBehaviour
             hud.Add(_nameItem, _doorKey);
             Debug.Log("Se cargo con exito la primera llave");
         }
-            /*for (i = 0; i <= 4; i++)
-            {
+        /*for (i = 0; i <= 4; i++)
+        {
 
-            }*/
+        }*/
     }
 
     //Carga del item "CageKage" en el inventario
     public void AddCageKey()
     {
-        _cageKey++; 
+        _cageKey++;
 
         // Si la el valor de _cageKey es distinto a 1 va a cargar el valor de la variable _cageKey en Value del hud.
         if (_cageKey != 1)
@@ -70,7 +89,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void SetNameKey(string newName) 
+    public void SetNameKey(string newName)
     {
         _nameItem = newName;
     }
@@ -144,14 +163,6 @@ public class PlayerInventory : MonoBehaviour
         
     }
 
-    void Update()
-    {
-       /* foreach (KeyValuePair<string, int> item in hud)
-        {
-                Debug.Log($"En la llave: {item.Key} hay {item.Value}.");
-        }*/
-    }
-
     private IEnumerator DepartureTime()
     {
         if (_inTheRoom == false)
@@ -170,5 +181,5 @@ public class PlayerInventory : MonoBehaviour
 
     }
 
-    
+
 }
