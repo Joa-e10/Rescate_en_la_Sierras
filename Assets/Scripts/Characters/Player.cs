@@ -2,6 +2,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : Characters
 {
@@ -9,6 +11,7 @@ public class Player : Characters
     private Vector2 _directionBullet;
     public GameObject bullet;
     private Transform gun;
+    private Vector2 _directionIdle = Vector2.down;
 
     void Start()
     {
@@ -27,12 +30,29 @@ public class Player : Characters
 
     private void OnMove(InputValue inputValue)  // Utilizamos el metodo OnMove designado para la accion de mover.
     {
-        
+
             Vector2 move = inputValue.Get<Vector2>(); // Tomamos el valor recibido de la accion.
             _rb.linearVelocity = move * speed; // generamos el movimiento del player.
-        _directionMove = move;
+            _directionMove = move;
 
-}
+        if (_directionMove.x > 0) 
+        {
+            _directionIdle = _directionMove;
+        }
+        if (_directionMove.x < 0)
+        {
+            _directionIdle = _directionMove;
+        }
+        if (_directionMove.y > 0)
+        {
+            _directionIdle = _directionMove;
+        }
+        if (_directionMove.y < 0)
+        {
+            _directionIdle = _directionMove;
+        }
+
+    }
 
     private void OnAttack(InputValue value) // Utilizamos el metodo OnAttack designado para la accion de atacar.
     {
@@ -51,12 +71,12 @@ public class Player : Characters
     {
         if (value.isPressed && attacking == false)
         {
-
             shooting = true;
+
+            StartCoroutine(Cooldown());
             GameObject generatedBullet = Instantiate(bullet, gun.transform.position, Quaternion.identity);
             bullet bulletComponent = generatedBullet.GetComponent<bullet>();
             bulletComponent.setDirectionBullet(_directionBullet);
-            shooting = false;
 
         }
 
@@ -83,28 +103,28 @@ public class Player : Characters
         }
     }
 
+    protected IEnumerator Cooldown()
+    {
+        if (shooting == true) 
+        {
+            yield return new WaitForSeconds(3f);
+
+            shooting = false;
+            //animator.SetBool("Shooting", shooting);
+        }
+    }
+
     private void Update()
     {
 
-        if (_directionMove.x > 0)
+
+        if (_directionMove != Vector2.zero)
         {
-            _directionBullet = Vector2.right;
-        }
-        else if (_directionMove.x < 0)
-        {
-            _directionBullet = Vector2.left;
-        }
-        else if (_directionMove.y > 0)
-        {
-            _directionBullet = Vector2.up;
-        }
-        else if (_directionMove.y < 0)
-        {
-            _directionBullet = Vector2.down;
+            _directionBullet = _directionMove;
         }
         else
         {
-            _directionBullet = Vector2.right;
+            _directionBullet = _directionIdle.normalized;
         }
 
             animator.SetBool("attacking", attacking);
