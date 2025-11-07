@@ -53,7 +53,7 @@ public class CanvasManager : MonoBehaviour
             _imageKeyD.SetActive(true);
             amountDoorKey.text = _amountDoorKey.ToString();
         }
-        else 
+        else
         {
             if (_amountDoorKey <= 0) 
             {
