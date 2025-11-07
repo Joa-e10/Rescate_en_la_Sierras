@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class SpawnShootController : MonoBehaviour
+public class ControllerWave2 : MonoBehaviour
 {
     void Start()
     {
@@ -19,7 +19,7 @@ public class SpawnShootController : MonoBehaviour
         if (player != null)
         {
             OnWave2?.Invoke();
-            Debug.Log("Entro en el spawn 1");
+            Debug.Log("Entro en el spawn 2");
         }
 
 

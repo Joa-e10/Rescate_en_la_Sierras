@@ -4,17 +4,17 @@ using UnityEngine.Rendering;
 
 public class SpawnWave2 : MonoBehaviour
 {
-    private int totalAmount;
+    private int _randomQuantity;
+    private int _totalAmount;
     public GameObject enemyBase;
     public GameObject enemyShooting;
     public GameObject keyPrefab;
-    private GameObject[] generatedEnemyB = new GameObject[3];
-    private GameObject[] generatedEnemyS = new GameObject[3];
+    private GameObject[] generatedEnemy;
     private EnemyBase _enemyComponent;
 
     private void OnEnable()
     {
-        SpawnShootController.OnWave2 += SpawnerEnemyShoot;
+        ControllerWave2.OnWave2 += SpawnerEnemyShoot;
 
     }
     void Start()
@@ -30,36 +30,38 @@ public class SpawnWave2 : MonoBehaviour
 
     private void SpawnerEnemyShoot()
     {
+        _randomQuantity = Random.Range(4, 6);
+        generatedEnemy = new GameObject[_randomQuantity];
 
-        for (int i = 0; i < generatedEnemyB.Length; i++)
-        {
-
-            generatedEnemyB[i] = Instantiate(enemyBase, transform.position, Quaternion.identity);
-            _enemyComponent = generatedEnemyB[i].GetComponent<EnemyBase>();
-            generatedEnemyS[i] = Instantiate(enemyShooting, transform.position, Quaternion.identity);
-            _enemyComponent = generatedEnemyS[i].GetComponent<EnemyBase>();
-
-            StartCoroutine(SpawnerTime());
-            totalAmount++;
-        }
-
-        if (totalAmount == generatedEnemyS.Length)
-        {
-            GameObject generatedKey = Instantiate(keyPrefab, transform.position, Quaternion.identity);
-            SpawnShootController.OnWave2 -= SpawnerEnemyShoot;
-        }
+        StartCoroutine(SpawnerWithTime());
 
     }
 
-    /* public void SetPosition(Vector2 actualPosition)
-     {
-         _positionDie = actualPosition;
-     }
+    private IEnumerator SpawnerWithTime()
+    {
+        for (int i = 0; i < generatedEnemy.Length; i++)
+        {
+            if (i <= _randomQuantity/2)
+            {
+                generatedEnemy[i] = Instantiate(enemyBase, transform.position, Quaternion.identity);
+            }
+            else 
+            {
+                generatedEnemy[i] = Instantiate(enemyShooting, transform.position, Quaternion.identity);
+            }
 
-     public void SetAlive(bool actualAlive)
-     {
-         _isAlive = actualAlive;
-     }*/
+            _totalAmount++;
+
+            yield return new WaitForSeconds(2f);
+        }
+
+        if (_totalAmount == generatedEnemy.Length)
+        {
+            GameObject generatedKey = Instantiate(keyPrefab, transform.position, Quaternion.identity);
+            ControllerWave2.OnWave2 -= SpawnerEnemyShoot;
+        }
+
+    }
 
     void Update()
     {
