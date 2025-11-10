@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class SpawnBaseController : MonoBehaviour
+public class ControllerWave1 : MonoBehaviour
 {
     void Start()
     {

@@ -12,7 +12,7 @@ public class SpawnWave1 : MonoBehaviour
 
     private void OnEnable()
     {
-        SpawnBaseController.OnWave1 += SpawnerEnemyBase;
+        ControllerWave1.OnWave1 += SpawnerEnemyBase;
     }
     void Start()
     {
@@ -27,24 +27,39 @@ public class SpawnWave1 : MonoBehaviour
 
     private void SpawnerEnemyBase()
     {
-        for (int i = 0; i < generatedEnemyB.Length; i++)
-        {
+        StartCoroutine(SpawnerWhitTime());
 
-            generatedEnemyB[i] = Instantiate(enemyBase, transform.position, Quaternion.identity);
-            _enemyComponent = generatedEnemyB[i].GetComponent<EnemyBase>();
-
-            StartCoroutine(SpawnerTime());
-            totalAmount++;
-        }
+        Debug.Log("El total de enemigos invocados: "+totalAmount);
 
         if (totalAmount == generatedEnemyB.Length)
         {
             Debug.Log("Entro a generar la key");
             GameObject generatedKey = Instantiate(keyPrefab, transform.position, Quaternion.identity);
-            SpawnBaseController.OnWave1 -= SpawnerEnemyBase;
+            ControllerWave1.OnWave1 -= SpawnerEnemyBase;
         }
 
     }
+
+    private IEnumerator SpawnerWhitTime()
+    {
+
+        for (int i = 0; i < generatedEnemyB.Length; i++)
+        {
+
+            generatedEnemyB[i] = Instantiate(enemyBase, transform.position, Quaternion.identity);
+            _enemyComponent = generatedEnemyB[i].GetComponent<EnemyBase>();
+            yield return new WaitForSeconds(2f);
+            totalAmount++;
+        }
+
+        if (totalAmount == generatedEnemyB.Length)
+        {
+            GameObject generatedKey = Instantiate(keyPrefab, transform.position, Quaternion.identity);
+            ControllerWave1.OnWave1 -= SpawnerEnemyBase;
+        }
+
+    }
+
     void Update()
     {
         
