@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using static UnityEditor.Experimental.GraphView.GraphView;
+
 
 public class Player : Characters
 {

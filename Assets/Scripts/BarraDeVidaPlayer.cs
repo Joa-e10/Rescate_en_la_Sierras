@@ -20,7 +20,7 @@ public class BarraDeVidaPlayer: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       barraDeVidaPlayer.fillAmount = _player.lives/vidaMaxima;
+       barraDeVidaPlayer.fillAmount = _player.lives / vidaMaxima;
         
     }
 }
