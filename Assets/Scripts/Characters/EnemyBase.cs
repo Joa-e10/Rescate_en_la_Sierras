@@ -40,6 +40,9 @@ public class EnemyBase : Enemy
         // Si se cumplen las 2 condiciones el enemigo puede atacar.
         if (distanceToPlayer <= 4 && !attacking)
         {
+            Debug.Log("ENTRO A ATACAR EL ENEMY");
+            attacking = true;
+            animator.SetBool("attacking", attacking); // Activa la animacion de ataque
             StartCoroutine(AttackWithCooldown());
         }
 
@@ -53,14 +56,13 @@ public class EnemyBase : Enemy
 
     protected IEnumerator AttackWithCooldown()
     {
-        Debug.Log("ENTRO A ATACAR EL ENEMY");
-        attacking = true;
-        animator.SetBool("attacking", attacking); // Activa la animacion de ataque
-
-        yield return new WaitForSeconds(2f);
-        Debug.Log("Salio de la corrutina");
-        attacking = false;
-        animator.SetBool("attacking", attacking);
+        if (attacking == true) 
+        {
+            yield return new WaitForSeconds(2f);
+            Debug.Log("Salio de la corrutina");
+            attacking = false;
+            animator.SetBool("attacking", attacking);
+        }
     }
 
     void OnDrawGizmosSelected()

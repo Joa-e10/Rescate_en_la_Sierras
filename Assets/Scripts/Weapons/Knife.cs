@@ -3,8 +3,7 @@
 public class Knife : MonoBehaviour
 {
 
-    private float quantityDamage = 1f;
-    private float range = 4.0f;
+    private float quantityDamage = 0.5f;
 
     // Verificamos que el objeto colisione con algo.
     private void OnTriggerEnter2D(Collider2D collision)

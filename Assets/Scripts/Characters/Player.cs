@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-
 public class Player : Characters
 {
     private Vector2 _directionMove;
@@ -12,6 +11,7 @@ public class Player : Characters
     public GameObject bullet;
     private Transform gun;
     private Vector2 _directionIdle = Vector2.down;
+    private int _bulletCounter;
 
     void Start()
     {
@@ -56,27 +56,29 @@ public class Player : Characters
 
     private void OnAttack(InputValue value) // Utilizamos el metodo OnAttack designado para la accion de atacar.
     {
+            if (value.isPressed && shooting == false) // condicional que toma el valor de la accion para saber si esta presionada o no para cambiar el estado del ataque.
+            {
 
-        if (value.isPressed && shooting == false) // condicional que toma el valor de la accion para saber si esta presionada o no para cambiar el estado del ataque.
-        {
-
-            attacking = true;
-
-            Debug.Log("Botón derecho presionado y estamos atacando");
-        }
-
+                attacking = true;
+                Debug.Log("Botón derecho presionado y estamos atacando");
+            }
     }
 
     private void OnShoot(InputValue value)
     {
-        if (value.isPressed && attacking == false)
+        if (!shooting)
         {
-            shooting = true;
 
-            StartCoroutine(Cooldown());
-            GameObject generatedBullet = Instantiate(bullet, gun.transform.position, Quaternion.identity);
-            bullet bulletComponent = generatedBullet.GetComponent<bullet>();
-            bulletComponent.setDirectionBullet(_directionBullet);
+            if (value.isPressed && attacking == false)
+            {
+                shooting = true;
+
+                StartCoroutine(CooldownShoot());
+                GameObject generatedBullet = Instantiate(bullet, gun.transform.position, Quaternion.identity);
+                bullet bulletComponent = generatedBullet.GetComponent<bullet>();
+                bulletComponent.setDirectionBullet(_directionBullet);
+                _bulletCounter++;
+            }
 
         }
 
@@ -103,16 +105,35 @@ public class Player : Characters
         }
     }
 
-    protected IEnumerator Cooldown()
+    protected IEnumerator CooldownShoot()
     {
-        if (shooting == true) 
+        if (_bulletCounter >= 4)
         {
-            yield return new WaitForSeconds(3f);
+            if (shooting == true)
+            {
+                yield return new WaitForSeconds(2.5f);
 
+                shooting = false;
+                _bulletCounter = 0;
+                //animator.SetBool("Shooting", shooting);
+            }
+        }
+        else 
+        {
             shooting = false;
-            //animator.SetBool("Shooting", shooting);
         }
     }
+
+    /*protected IEnumerator CooldownAttack()
+    {
+            if (attacking == true)
+            {
+                yield return new WaitForSeconds(1f);
+
+                attacking = false;
+                //animator.SetBool("Shooting", shooting);
+            }
+    }*/
 
     private void Update()
     {
