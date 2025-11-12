@@ -7,7 +7,7 @@ public class LetterController : MonoBehaviour
     private bool _isOpen;
     private float _distanceToPlayer;
     private Transform _player;
-    public GameObject animalCard;
+    public GameObject missionMessage;
     private SpriteRenderer _letterSprite;
     private Animator _animator;
 
@@ -46,7 +46,7 @@ public class LetterController : MonoBehaviour
         {
             _isOpen = true;
             _animator.SetBool("isOpen", _isOpen);
-            animalCard.SetActive(true);
+            missionMessage.SetActive(true);
             
         }
     }
@@ -57,7 +57,7 @@ public class LetterController : MonoBehaviour
 
         if (player != null)
         {
-            animalCard.SetActive(false);
+            missionMessage.SetActive(false);
         }
     }
 }
