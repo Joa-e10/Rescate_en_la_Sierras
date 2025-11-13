@@ -58,9 +58,11 @@ public class CanvasManager : MonoBehaviour
             if (_amountDoorKey <= 0) 
             {
                 _imageKeyD.SetActive(false);
+
+                Debug.Log("Se actualizo la cantidad de la llaves door");
+                amountDoorKey.text = _amountDoorKey.ToString();
             }
-            Debug.Log("Se actualizo la cantidad de la llaves door");
-            amountDoorKey.text = _amountDoorKey.ToString();
+
         }
     }
 }

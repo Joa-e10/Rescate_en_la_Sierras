@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
 
 public class FinalBoss : Enemy
 {
@@ -11,12 +9,14 @@ public class FinalBoss : Enemy
     Vector2 directionBullet;
     private Transform gun;
     private int amountBullet;
+    private ExitDoor _door;
     void Start()
     {
         
         _rb = GetComponent<Rigidbody2D>(); // Toma el componente rigidbody2D del objeto.
         _player = GameObject.Find("player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
         gun = GameObject.Find("gunController(2)").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "gunController(2)".
+        _door = GameObject.Find("doorExit").GetComponent<ExitDoor>();
         detectionRadius = 10.0f;
 
         agent = GetComponent<NavMeshAgent>();
@@ -28,6 +28,7 @@ public class FinalBoss : Enemy
     {
             moveEnemy();
             Attack();
+        _door.SetAlive(true);
     }
 
 
@@ -144,6 +145,15 @@ public class FinalBoss : Enemy
         Debug.Log("Salio de la corrutina");
         attacking = false;
         animator.SetBool("Attacking", attacking);
+    }
+
+
+
+    //public static event Action OnDoorUnlocked;
+    private void OnDisable()
+    {
+       //OnDoorUnlocked?.Invoke();
+        _door.SetAlive(false);
     }
 
     void OnDrawGizmosSelected()

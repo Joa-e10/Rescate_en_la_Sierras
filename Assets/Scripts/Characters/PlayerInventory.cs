@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,15 +11,17 @@ public class PlayerInventory : MonoBehaviour
     private int valueItem = 0;
     private CanvasManager _canvas;
     private Transform _doorExit;
-    private Transform _doorEntrance;
+    private Transform _doorPosition;
+    private EntranceDoor _doorEntrance;
     public Animals _animals;
     private string _nameAnimal;
     private bool _inTheRoom = false;
     void Start()
     {
         _doorExit = GameObject.Find("doorExit").GetComponent<Transform>();
-        _doorEntrance = GameObject.Find("doorEntrance").GetComponent<Transform>();
+        _doorPosition = GameObject.Find("doorEntrance").GetComponent<Transform>();
         _canvas = GameObject.Find("Canvas_HUD").GetComponent<CanvasManager>();
+        _doorEntrance = GameObject.Find("doorEntrance").GetComponent<EntranceDoor>();
     }
 
     void Update()
@@ -35,6 +36,7 @@ public class PlayerInventory : MonoBehaviour
             }
             else if(item.Key == "DoorKey")
             {
+                _doorEntrance.SetNumberKey(item.Value);
                 _canvas.PlayerSlot2(item.Value);
             }
         }
@@ -152,7 +154,7 @@ public class PlayerInventory : MonoBehaviour
                 {
                     StartCoroutine(DepartureTime());
                     _doorKey++;
-                    transform.position = _doorEntrance.position;
+                    transform.position = _doorPosition.position;
 
                 }
             }
