@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 9110928291181638660}
   - component: {fileID: 4620971919940538300}
   - component: {fileID: 1674933929057896831}
-  - component: {fileID: 1183637989805264724}
+  - component: {fileID: 3689139831547527623}
   m_Layer: 5
   m_Name: Fill2
   m_TagString: Untagged
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1183637989805264724
+--- !u!114 &3689139831547527623
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,10 +272,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 671900846133011305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34a6a4daedda52141afa6363439984c3, type: 3}
+  m_Script: {fileID: 11500000, guid: f66d0c3534631d141ae118a3d6a5eeef, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UiManager
-  barraDeVidaPlayer: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::BarraDeVidaBoss
+  barraDeVidaBoss: {fileID: 0}
 --- !u!1 &1057484759979155422
 GameObject:
   m_ObjectHideFlags: 0

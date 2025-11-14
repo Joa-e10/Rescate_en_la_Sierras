@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BarraDeVidaPlayer: MonoBehaviour
+public class BarraDeVidaPlayer : MonoBehaviour
 {
     public Image barraDeVidaPlayer;
     private Player _player;
@@ -13,14 +13,14 @@ public class BarraDeVidaPlayer: MonoBehaviour
     {
         _player = GameObject.Find("player").GetComponent<Player>();
         vidaMaxima = _player.lives;
-        
+
     }
 
-   
+
     // Update is called once per frame
     void Update()
     {
         barraDeVidaPlayer.fillAmount = _player.lives / vidaMaxima;
-        
+
     }
 }

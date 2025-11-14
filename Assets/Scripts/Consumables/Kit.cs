@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Kit : MonoBehaviour
 {
-    private float _healing = 1;
+    private float _healing = 1f;
 
     // Verificamos que el objeto colisione con algo.
     private void OnTriggerEnter2D(Collider2D collision)
