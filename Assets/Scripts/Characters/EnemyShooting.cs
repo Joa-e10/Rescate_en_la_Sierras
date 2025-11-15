@@ -26,41 +26,47 @@ public class EnemyShooting : Enemy
     {
         if (!shooting)
         {
+           /* if (agent.velocity.magnitude <= 0)
+            {
+                moving = false;
+                animator.SetBool("Moving", moving);
+            }*/
             distanceToPlayer = Vector2.Distance(transform.position, _player.position);
 
             if (distanceToPlayer < detectionRadius)
             {
+                moving = true;
+                animator.SetBool("Moving", moving);
                 agent.SetDestination(_player.position);
                 directionEnemy = (agent.steeringTarget - transform.position).normalized;
-                moving = true;
 
                 animator.SetFloat("Vertical", directionEnemy.y);
                 animator.SetFloat("Horizontal", directionEnemy.x);
 
                 Debug.Log("la nueva direccion devuelve: " + directionEnemy);
 
-
                 if (directionEnemy.x > 0)
                 {
-                    _directionIdle = new Vector2(directionEnemy.x, 0);
+                    _directionIdle = directionEnemy.normalized;
                 }
                 else if (directionEnemy.x < 0)
                 {
-                    _directionIdle = new Vector2(directionEnemy.x, 0);
+                    _directionIdle = directionEnemy.normalized;
                 }
                 else if (directionEnemy.y > 0)
                 {
-                    _directionIdle = new Vector2(0, directionEnemy.y);
+                    _directionIdle = directionEnemy.normalized;
                 }
                 else if (directionEnemy.y < 0)
                 {
-                    _directionIdle = new Vector2(0, directionEnemy.y);
+                    _directionIdle = directionEnemy.normalized;
                 }
 
             }
             else 
             {
-                agent.isStopped = true;
+                moving = false;
+                animator.SetBool("Moving", moving);
             }
 
         }
@@ -98,16 +104,6 @@ public class EnemyShooting : Enemy
 
     void Update()
     {
-
-        if (agent.isStopped != true)
-        {
-        }
-        else
-        {
-            moving = false;
-            animator.SetBool("Moving", moving);
-        }
-        animator.SetBool("Moving", moving);
 
         if (!moving)
         {
