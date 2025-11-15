@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -29,6 +30,11 @@ public class FinalBoss : Enemy
             moveEnemy();
             Attack();
         _door.SetAlive(true);
+
+        if (_alive != true)
+        {
+            die();
+        }
     }
 
 
