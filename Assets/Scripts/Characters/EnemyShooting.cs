@@ -5,7 +5,8 @@ using UnityEngine.AI;
 public class EnemyShooting : Enemy
 {
     private Vector2 _lastBullet;
-    Vector2 directionBullet;
+    private Vector2 directionBullet;
+    private Vector2 directionEnemy;
     private Transform gun;
 
     void Start()
@@ -29,10 +30,37 @@ public class EnemyShooting : Enemy
 
             if (distanceToPlayer < detectionRadius)
             {
+                agent.SetDestination(_player.position);
+                directionEnemy = (agent.steeringTarget - transform.position).normalized;
+                moving = true;
 
-                    Debug.Log("la nueva direccion devuelve: " + distanceToPlayer);
-                    agent.SetDestination(_player.position);
+                animator.SetFloat("Vertical", directionEnemy.y);
+                animator.SetFloat("Horizontal", directionEnemy.x);
 
+                Debug.Log("la nueva direccion devuelve: " + directionEnemy);
+
+
+                if (directionEnemy.x > 0)
+                {
+                    _directionIdle = new Vector2(directionEnemy.x, 0);
+                }
+                else if (directionEnemy.x < 0)
+                {
+                    _directionIdle = new Vector2(directionEnemy.x, 0);
+                }
+                else if (directionEnemy.y > 0)
+                {
+                    _directionIdle = new Vector2(0, directionEnemy.y);
+                }
+                else if (directionEnemy.y < 0)
+                {
+                    _directionIdle = new Vector2(0, directionEnemy.y);
+                }
+
+            }
+            else 
+            {
+                agent.isStopped = true;
             }
 
         }
@@ -59,17 +87,37 @@ public class EnemyShooting : Enemy
         GameObject generatedBullet = Instantiate(bulletEnemy, gun.transform.position, Quaternion.identity);
         BulletEnemy bulletComponent = generatedBullet.GetComponent<BulletEnemy>();
         bulletComponent.setDirectionBullet(_lastBullet);
-        //animator.SetBool("Shooting", shooting);
+        animator.SetBool("Shooting", shooting);
 
         yield return new WaitForSeconds(1.5f);
 
         shooting = false;
-        //animator.SetBool("Shooting", shooting);
+        animator.SetBool("Shooting", shooting);
     }
+
 
     void Update()
     {
+
+        if (agent.isStopped != true)
+        {
+        }
+        else
+        {
+            moving = false;
+            animator.SetBool("Moving", moving);
+        }
+        animator.SetBool("Moving", moving);
+
+        if (!moving)
+        {
+
+            animator.SetFloat("LastX", _directionIdle.x);
+            animator.SetFloat("LastY", _directionIdle.y);
+
+        }
         moveEnemy();
+
         Attack();
     }
 }

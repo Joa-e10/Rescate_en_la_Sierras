@@ -8,6 +8,7 @@ public abstract class Enemy : Characters
     //Declaracion de las variables que solo utilizaran los enemigos.
     protected float detectionRadius = 10;
     protected Vector2 movement;
+    protected Vector3 _directionIdle = Vector3.down;
     [SerializeField] protected Transform _player;
     protected NavMeshAgent agent;
     public GameObject bulletEnemy;
