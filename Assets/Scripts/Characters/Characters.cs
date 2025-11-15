@@ -12,6 +12,8 @@ public abstract class Characters : MonoBehaviour
     public bool _alive = true;
     protected bool attacking = false;
     protected bool shooting = false;
+    protected bool damaged = false;
+    protected bool moving = false;
     protected Rigidbody2D _rb;
     public Animator animator;
     public SpriteRenderer sprite;
@@ -25,14 +27,14 @@ public abstract class Characters : MonoBehaviour
         if (lives <= 1) //Condicional para saber si el personaje esta vivo (vidas mayor a 1) para recibir el daño. 
         {
             _alive = false; //En caso contrario, se le cambiara el estado de "vivo" a falso y pasara a ser destruido.
-            die();
-
+            animator.SetBool("Alive", _alive);
         }
         else
         { //si no, se le restara el daño recibido a "lives".
 
             lives = lives - received;
-
+            damaged = true;
+            animator.SetBool("Damaged", damaged);
         }
     }
 
@@ -43,11 +45,18 @@ public abstract class Characters : MonoBehaviour
         attacking = false;
     }
 
-    public void ShootDisabled()
+    public void DamagedDisabled()
     {
 
-        shooting = false;
+        damaged = false;
+        animator.SetBool("Damaged", damaged);
     }
+
+    /* public void ShootDisabled()
+     {
+
+         shooting = false;
+     }*/
 
     protected abstract void die(); // Metodo "morir".
         

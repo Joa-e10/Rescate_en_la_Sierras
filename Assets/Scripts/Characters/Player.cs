@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -12,6 +11,8 @@ public class Player : Characters
     private Transform gun;
     private Vector2 _directionIdle = Vector2.down;
     private int _bulletCounter;
+    private bool reloading;
+
 
     void Start()
     {
@@ -33,9 +34,14 @@ public class Player : Characters
 
             Vector2 move = inputValue.Get<Vector2>(); // Tomamos el valor recibido de la accion.
             _rb.linearVelocity = move * speed; // generamos el movimiento del player.
-            _directionMove = move;
 
-        if (_directionMove.x > 0) 
+        animator.SetFloat("Vertical", _rb.linearVelocity.y);
+        animator.SetFloat("Horizontal", _rb.linearVelocity.x);
+
+        _directionMove = move;
+        moving = true;
+
+        if (_directionMove.x > 0)
         {
             _directionIdle = _directionMove;
         }
@@ -66,13 +72,13 @@ public class Player : Characters
 
     private void OnShoot(InputValue value)
     {
-        if (!shooting)
+        if (!shooting && !reloading)
         {
 
             if (value.isPressed && attacking == false)
             {
                 shooting = true;
-
+                animator.SetBool("Shooting", shooting);
                 StartCoroutine(CooldownShoot());
                 GameObject generatedBullet = Instantiate(bullet, gun.transform.position, Quaternion.identity);
                 bullet bulletComponent = generatedBullet.GetComponent<bullet>();
@@ -107,21 +113,24 @@ public class Player : Characters
 
     protected IEnumerator CooldownShoot()
     {
-        if (_bulletCounter >= 4)
-        {
+
             if (shooting == true)
             {
-                yield return new WaitForSeconds(2.5f);
-
+                yield return new WaitForSeconds(0.5f);
                 shooting = false;
-                _bulletCounter = 0;
-                //animator.SetBool("Shooting", shooting);
+                animator.SetBool("Shooting", shooting);
+            Debug.Log("Entra en la primera");
+                if (_bulletCounter >= 4) 
+                {
+                    reloading = true;
+                    _bulletCounter = 0;
+                    animator.SetBool("Shooting", shooting);
+                Debug.Log("Entra en la segunda");
+                    yield return new WaitForSeconds(3f);
+                Debug.Log("Sale de la segunda");
+                    reloading = false;
             }
-        }
-        else 
-        {
-            shooting = false;
-        }
+            }
     }
 
     /*protected IEnumerator CooldownAttack()
@@ -138,6 +147,7 @@ public class Player : Characters
     private void Update()
     {
 
+        animator.SetBool("Moving", moving);
 
         if (_directionMove != Vector2.zero)
         {
@@ -145,9 +155,18 @@ public class Player : Characters
         }
         else
         {
+            moving = false;
             _directionBullet = _directionIdle.normalized;
         }
 
-            animator.SetBool("attacking", attacking);
+        if (!moving)
+        {
+
+            animator.SetFloat("LastX", _directionIdle.x);
+            animator.SetFloat("LastY", _directionIdle.y);
+
+        }
+        animator.SetBool("attacking", attacking);
+        
     }
 }
