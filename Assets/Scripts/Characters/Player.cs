@@ -45,15 +45,15 @@ public class Player : Characters
         {
             _directionIdle = _directionMove;
         }
-        if (_directionMove.x < 0)
+        else if (_directionMove.x < 0)
         {
             _directionIdle = _directionMove;
         }
-        if (_directionMove.y > 0)
+        else if (_directionMove.y > 0)
         {
             _directionIdle = _directionMove;
         }
-        if (_directionMove.y < 0)
+        else if (_directionMove.y < 0)
         {
             _directionIdle = _directionMove;
         }
