@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,6 +9,7 @@ public class FinalBoss : Enemy
     private Transform gun;
     private int amountBullet;
     private ExitDoor _door;
+    public GameObject _bosslife; 
     void Start()
     {
         
@@ -63,7 +62,7 @@ public class FinalBoss : Enemy
 
                 //Debug.Log("la nueva direccion devuelve: " + distanceToPlayer);
                 agent.SetDestination(_player.position);
-
+                
             }
 
         }
@@ -82,7 +81,7 @@ public class FinalBoss : Enemy
                     if (distanceToPlayer > 2)
                     {
                         agent.SetDestination(_player.transform.position);
-
+                        _bosslife.SetActive(true);
                     }
 
                 }
@@ -160,6 +159,7 @@ public class FinalBoss : Enemy
     {
        //OnDoorUnlocked?.Invoke();
         _door.SetAlive(false);
+
     }
 
     void OnDrawGizmosSelected()
