@@ -17,7 +17,7 @@ public class FinalBoss : Enemy
         _player = GameObject.Find("player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
         gun = GameObject.Find("gunController(2)").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "gunController(2)".
         _door = GameObject.Find("doorExit").GetComponent<ExitDoor>();
-        detectionRadius = 10.0f;
+        detectionRadius = 20.0f;
 
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
@@ -131,13 +131,13 @@ public class FinalBoss : Enemy
         GameObject generatedBullet = Instantiate(bulletEnemy, gun.transform.position, Quaternion.identity);
         BulletEnemy bulletComponent = generatedBullet.GetComponent<BulletEnemy>();
         bulletComponent.setDirectionBullet(_lastBullet);
-        animator.SetBool("Shooting", shooting);
+        //animator.SetBool("Shooting", shooting);
         amountBullet++;
 
         yield return new WaitForSeconds(1.5f);
 
         shooting = false;
-        animator.SetBool("Shooting", shooting);
+        //animator.SetBool("Shooting", shooting);
     }
 
     protected IEnumerator AttackWithCooldown()
