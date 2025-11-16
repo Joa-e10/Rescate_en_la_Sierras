@@ -4,6 +4,7 @@ using UnityEngine;
 public class AnimalsCard : MonoBehaviour
 {
     public GameObject animalCard;
+    private int _animalCounter;
     void Start()
     {
     }
@@ -15,19 +16,20 @@ public class AnimalsCard : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Player player = collision.gameObject.GetComponent<Player>();
+        PlayerInventory playerInventory = collision.gameObject.GetComponent<PlayerInventory>();
 
-        if (player != null)
+        if (playerInventory != null)
         {
             Debug.Log("Entro en el queridisimo colider");
             animalCard.SetActive(false);
+            playerInventory.SetAnimalCounter(_animalCounter++);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Player player = collision.gameObject.GetComponent<Player>();
+        PlayerInventory playerInventory = collision.gameObject.GetComponent<PlayerInventory>();
 
-        if (player != null)
+        if (playerInventory != null)
         {
             animalCard.SetActive(true);
         }
