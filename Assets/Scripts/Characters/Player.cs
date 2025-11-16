@@ -20,6 +20,7 @@ public class Player : Characters
         gun = GameObject.Find("gunController").GetComponent<Transform>();
 
         lives = 10f;
+        speed = 5f;
     }
 
     public void setShooting(bool state)
