@@ -4,7 +4,7 @@ public class Animals : MonoBehaviour
 {
     private string _nameKey = "CageKey";
     protected string nameAnimal;
-    private bool _isFree;
+    public bool _isFree;
     protected SpriteRenderer _spriteAnimal;
     public Sprite animalFree;
 
