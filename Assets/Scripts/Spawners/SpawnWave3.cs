@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 
 public class SpawnWave3 : MonoBehaviour
@@ -8,7 +7,7 @@ public class SpawnWave3 : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
     private int _randomQuantity;
     private int _totalAmount;
@@ -69,5 +68,5 @@ public class SpawnWave3 : MonoBehaviour
     void Update()
     {
     }
-    
+
 }
