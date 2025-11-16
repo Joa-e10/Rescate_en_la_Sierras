@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class CanvasManager : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class CanvasManager : MonoBehaviour
     public GameObject _imageKeyD;
     public TextMeshProUGUI amountCageKey;
     public TextMeshProUGUI amountDoorKey;
-
+    public GameObject panelFinal;
 
     void Start()
     {
@@ -65,4 +66,9 @@ public class CanvasManager : MonoBehaviour
 
         }
     }
+    public void JugarDeNuevo()
+    {
+        SceneManager.LoadScene(0);
+    }
+
 }
