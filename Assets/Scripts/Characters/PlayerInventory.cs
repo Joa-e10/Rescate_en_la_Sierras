@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class PlayerInventory : MonoBehaviour
     private int _cageKey;
     private int _doorKey;
     private string _nameItem;
-    private int valueItem = 0;
+    private int _animalCounter = 0;
     private CanvasManager _canvas;
     private Transform _doorExit;
     private Transform _doorPosition;
@@ -40,6 +41,16 @@ public class PlayerInventory : MonoBehaviour
                 _canvas.PlayerSlot2(item.Value);
             }
         }
+
+        if (_animalCounter >= 3) 
+        {
+            SceneManager.LoadScene("WinScene");
+        }
+    }
+
+    public void SetAnimalCounter(int newAmount) 
+    {
+        _animalCounter = _animalCounter + newAmount;
     }
 
     //Carga del item "DoorKey" en el inventario
