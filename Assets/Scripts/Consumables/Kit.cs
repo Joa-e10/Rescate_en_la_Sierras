@@ -10,7 +10,7 @@ public class Kit : MonoBehaviour
         Player player = collision.gameObject.GetComponent<Player>();
 
         // Si el objeto con el que colisiona contiene el componente "Player" llama a la funcion de ese objeto para curarlo.
-        if (player != null) 
+        if (player != null)
         {
             player.takeHealing(_healing);
             Destroy(gameObject);
@@ -25,6 +25,6 @@ public class Kit : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 }

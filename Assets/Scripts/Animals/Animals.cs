@@ -8,6 +8,7 @@ public class Animals : MonoBehaviour
     protected SpriteRenderer _spriteAnimal;
     public Sprite animalFree;
 
+
     // Verificamos que el objeto colisione con algo.
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -24,6 +25,7 @@ public class Animals : MonoBehaviour
             if (_isFree) 
             {
                 _spriteAnimal.sprite = animalFree;
+
             }
 
 

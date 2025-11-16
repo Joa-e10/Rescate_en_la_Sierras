@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Puma : Animals
 {
+    GameObject pumaCard;
 
     void Start()
     {
