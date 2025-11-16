@@ -26,11 +26,6 @@ public class EnemyShooting : Enemy
     {
         if (!shooting)
         {
-           /* if (agent.velocity.magnitude <= 0)
-            {
-                moving = false;
-                animator.SetBool("Moving", moving);
-            }*/
             distanceToPlayer = Vector2.Distance(transform.position, _player.position);
 
             if (distanceToPlayer < detectionRadius)
