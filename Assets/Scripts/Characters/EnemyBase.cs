@@ -17,6 +17,7 @@ public class EnemyBase : Enemy
         agent.updateUpAxis = false;
 
         agent.speed = 3;
+       
     }
     
 
