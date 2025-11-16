@@ -4,6 +4,9 @@ using UnityEngine.AI;
 
 public class EnemyBase : Enemy
 {
+    private Vector2 directionEnemy;
+    private int _attackCounter = 0;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>(); // Toma el componente rigidbody2D del objeto.
@@ -21,14 +24,43 @@ public class EnemyBase : Enemy
     {
         if (!attacking)
         {
-            distanceToPlayer = Vector2.Distance(transform.position, _player.position);
+                distanceToPlayer = Vector2.Distance(transform.position, _player.position);
 
-            if (distanceToPlayer < detectionRadius)
-            {
+                if (distanceToPlayer < detectionRadius)
+                {
+                    moving = true;
+                    animator.SetBool("Moving", moving);
+                    agent.SetDestination(_player.position);
+                    directionEnemy = (agent.steeringTarget - transform.position).normalized;
 
+                    animator.SetFloat("Vertical", directionEnemy.y);
+                    animator.SetFloat("Horizontal", directionEnemy.x);
 
-                agent.SetDestination(_player.position);
-            }
+                    Debug.Log("la nueva direccion devuelve: " + directionEnemy);
+
+                    if (directionEnemy.x > 0)
+                    {
+                        _directionIdle = directionEnemy.normalized;
+                    }
+                    else if (directionEnemy.x < 0)
+                    {
+                        _directionIdle = directionEnemy.normalized;
+                    }
+                    else if (directionEnemy.y > 0)
+                    {
+                        _directionIdle = directionEnemy.normalized;
+                    }
+                    else if (directionEnemy.y < 0)
+                    {
+                        _directionIdle = directionEnemy.normalized;
+                    }
+
+                }
+                else
+                {
+                    moving = false;
+                    animator.SetBool("Moving", moving);
+                }
 
         }
         
@@ -38,11 +70,8 @@ public class EnemyBase : Enemy
     {
 
         // Si se cumplen las 2 condiciones el enemigo puede atacar.
-        if (distanceToPlayer <= 4 && !attacking)
+        if (distanceToPlayer <= 3 && !attacking)
         {
-            Debug.Log("ENTRO A ATACAR EL ENEMY");
-            attacking = true;
-            animator.SetBool("attacking", attacking); // Activa la animacion de ataque
             StartCoroutine(AttackWithCooldown());
         }
 
@@ -51,17 +80,31 @@ public class EnemyBase : Enemy
     void Update()
     {
         moveEnemy();
+        if (!moving)
+        {
+
+            animator.SetFloat("LastX", _directionIdle.x);
+            animator.SetFloat("LastY", _directionIdle.y);
+
+        }
+
         Attack();
     }
 
     protected IEnumerator AttackWithCooldown()
     {
-        if (attacking == true) 
+        
+        if (attacking == false)
         {
-            yield return new WaitForSeconds(2f);
-            Debug.Log("Salio de la corrutina");
+            yield return new WaitForSeconds(1.0f);
+            Debug.Log("Entro de la corrutina donde ataca");
+            attacking = true;
+            animator.SetBool("Attacking", attacking);
+
+            yield return new WaitForSeconds(1.0f);
             attacking = false;
-            animator.SetBool("attacking", attacking);
+            animator.SetBool("Attacking", attacking);
+            // Debug.Log("Salio de la corrutina donde ataca");
         }
     }
 
