@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5563492038249159427}
-  - component: {fileID: 8272200850802195822}
   - component: {fileID: 6924374654312520460}
   m_Layer: 0
   m_Name: spawnerWave2
@@ -33,21 +32,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8272200850802195822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 659817332854963737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9f3fcba788014d43b3ce4de13e9a4f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Spawner
-  enemyBase: {fileID: 6295817052419568489, guid: 44bea5759ad3a7149990277ba5ee14e5, type: 3}
-  enemyShooting: {fileID: 2076087357733189266, guid: 59bee2cee2554464197f38d04939e8e3, type: 3}
-  keyPrefab: {fileID: 7791939383007221212, guid: eb6918cb2d749b741b55861ef97bc23b, type: 3}
 --- !u!212 &6924374654312520460
 SpriteRenderer:
   m_ObjectHideFlags: 0
