@@ -222,17 +222,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.18849659, y: -0.73987293}
+  m_Offset: {x: 0.0005950928, y: 0.0031051636}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.3, y: 6.4}
+    oldSize: {x: 1.9, y: 4.8}
     newSize: {x: 0.9142857, y: 0.9142857}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.8932915, y: 4.171213}
+  m_Size: {x: 1.9209366, y: 4.813553}
   m_EdgeRadius: 0
 --- !u!212 &377109943186074525
 SpriteRenderer:
@@ -281,7 +281,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 2310042201572043050, guid: 840d01bb3c5614d449049bea3f47b45d, type: 3}
+  m_Sprite: {fileID: -6197482513614340917, guid: 4caf263551433fe48a94094c1e89b6d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -302,7 +302,7 @@ Animator:
   m_GameObject: {fileID: 6859395623716295191}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c6ae2fcf46b0642429633491a3986c49, type: 2}
+  m_Controller: {fileID: 9100000, guid: 34e76cd7dca55794cbf3570b2be8d95c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -341,7 +341,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6859395623716295191}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.14
+  m_Radius: 0.98
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -350,7 +350,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 4.19
-  m_BaseOffset: 2.87
+  m_Height: 4.9
+  m_BaseOffset: 2.48
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
