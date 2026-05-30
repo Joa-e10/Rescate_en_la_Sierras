@@ -13,6 +13,8 @@ public class Player : Characters
     private int _bulletCounter;
     private bool reloading;
 
+    private float _reloadTimer = 0;
+
 
     void Start()
     {
@@ -20,7 +22,7 @@ public class Player : Characters
         gun = GameObject.Find("gunController").GetComponent<Transform>();
 
         lives = 10f;
-        speed = 5f;
+        speed = 10f;
     }
 
     public void setShooting(bool state)
@@ -73,18 +75,19 @@ public class Player : Characters
 
     private void OnShoot(InputValue value)
     {
-        if (!shooting && !reloading)
+        if (!shooting && _reloadTimer <=0)
         {
 
             if (value.isPressed && attacking == false)
             {
                 shooting = true;
                 animator.SetBool("Shooting", shooting);
+                _reloadTimer = 1f;
                 StartCoroutine(CooldownShoot());
                 GameObject generatedBullet = Instantiate(bullet, gun.transform.position, Quaternion.identity);
                 bullet bulletComponent = generatedBullet.GetComponent<bullet>();
                 bulletComponent.setDirectionBullet(_directionBullet);
-                _bulletCounter++;
+                //_bulletCounter++;
             }
 
         }
@@ -120,6 +123,9 @@ public class Player : Characters
                 yield return new WaitForSeconds(0.5f);
                 shooting = false;
                 animator.SetBool("Shooting", shooting);
+            }
+            
+            /*
             Debug.Log("Entra en la primera");
                 if (_bulletCounter >= 4) 
                 {
@@ -131,7 +137,7 @@ public class Player : Characters
                 Debug.Log("Sale de la segunda");
                     reloading = false;
             }
-            }
+            */
     }
 
     /*protected IEnumerator CooldownAttack()
@@ -167,7 +173,12 @@ public class Player : Characters
             animator.SetFloat("LastY", _directionIdle.y);
 
         }
-        animator.SetBool("attacking", attacking);
+        //animator.SetBool("attacking", attacking);
         
+        if(_reloadTimer >= 0)
+        {
+            _reloadTimer -= Time.deltaTime;
+        }
+
     }
 }
