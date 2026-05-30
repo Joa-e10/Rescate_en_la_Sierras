@@ -100,11 +100,9 @@ public class EnemyBase : Enemy
             yield return new WaitForSeconds(1.0f);
             Debug.Log("Entro de la corrutina donde ataca");
             attacking = true;
-            animator.SetBool("Attacking", attacking);
 
             yield return new WaitForSeconds(1.0f);
             attacking = false;
-            animator.SetBool("Attacking", attacking);
             // Debug.Log("Salio de la corrutina donde ataca");
         }
     }

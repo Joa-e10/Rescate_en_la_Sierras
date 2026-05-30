@@ -127,7 +127,7 @@ public class Player : Characters
                     _bulletCounter = 0;
                     animator.SetBool("Shooting", shooting);
                 Debug.Log("Entra en la segunda");
-                    yield return new WaitForSeconds(3f);
+                    yield return new WaitForSeconds(1.5f);
                 Debug.Log("Sale de la segunda");
                     reloading = false;
             }
