@@ -13,11 +13,15 @@ public class Player : Characters
     private int _bulletCounter;
     private bool reloading;
 
+    private Vector2 _directionMouse;
+    private Camera _camera;
+
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>(); // Toma el componente rigidbody2D del objeto.
         gun = GameObject.Find("gunController").GetComponent<Transform>();
+        _camera = Camera.main;
 
         lives = 10f;
         speed = 5f;
@@ -41,23 +45,6 @@ public class Player : Characters
 
         _directionMove = move;
         moving = true;
-
-        if (_directionMove.x > 0)
-        {
-            _directionIdle = _directionMove;
-        }
-        else if (_directionMove.x < 0)
-        {
-            _directionIdle = _directionMove;
-        }
-        else if (_directionMove.y > 0)
-        {
-            _directionIdle = _directionMove;
-        }
-        else if (_directionMove.y < 0)
-        {
-            _directionIdle = _directionMove;
-        }
 
     }
 
@@ -83,7 +70,7 @@ public class Player : Characters
                 StartCoroutine(CooldownShoot());
                 GameObject generatedBullet = Instantiate(bullet, gun.transform.position, Quaternion.identity);
                 bullet bulletComponent = generatedBullet.GetComponent<bullet>();
-                bulletComponent.setDirectionBullet(_directionBullet);
+                bulletComponent.setDirectionBullet(_directionMouse.normalized);
                 _bulletCounter++;
             }
 
@@ -134,40 +121,26 @@ public class Player : Characters
             }
     }
 
-    /*protected IEnumerator CooldownAttack()
-    {
-            if (attacking == true)
-            {
-                yield return new WaitForSeconds(1f);
-
-                attacking = false;
-                //animator.SetBool("Shooting", shooting);
-            }
-    }*/
-
     private void Update()
     {
 
+        Vector2 mouseWorldPoint = _camera.ScreenToWorldPoint(Input.mousePosition);
+        _directionMouse = mouseWorldPoint - (Vector2)transform.position;
+
         animator.SetBool("Moving", moving);
 
-        if (_directionMove != Vector2.zero)
-        {
-            _directionBullet = _directionMove;
-        }
-        else
+        if (_directionMove == Vector2.zero)
         {
             moving = false;
-            _directionBullet = _directionIdle.normalized;
         }
 
         if (!moving)
         {
 
-            animator.SetFloat("LastX", _directionIdle.x);
-            animator.SetFloat("LastY", _directionIdle.y);
+            animator.SetFloat("LastX", _directionMouse.x);
+            animator.SetFloat("LastY", _directionMouse.y);
 
         }
-        animator.SetBool("attacking", attacking);
-        
+        animator.SetBool("attacking", attacking); 
     }
 }
