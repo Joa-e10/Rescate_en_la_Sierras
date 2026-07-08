@@ -9,8 +9,6 @@ public class Player : Characters
     private Vector2 _directionBullet;
     public GameObject bullet;
     private Transform gun;
-    private Vector2 _directionIdle = Vector2.down;
-    private int _bulletCounter;
     private bool reloading;
 
     private Vector2 _directionMouse;
@@ -60,7 +58,7 @@ public class Player : Characters
 
     private void OnShoot(InputValue value)
     {
-        if (!shooting && !reloading)
+        if (!shooting && reloading == false)
         {
 
             if (value.isPressed && attacking == false)
@@ -71,7 +69,6 @@ public class Player : Characters
                 GameObject generatedBullet = Instantiate(bullet, gun.transform.position, Quaternion.identity);
                 bullet bulletComponent = generatedBullet.GetComponent<bullet>();
                 bulletComponent.setDirectionBullet(_directionMouse.normalized);
-                _bulletCounter++;
             }
 
         }
@@ -101,24 +98,14 @@ public class Player : Characters
 
     protected IEnumerator CooldownShoot()
     {
-
-            if (shooting == true)
-            {
-                yield return new WaitForSeconds(0.5f);
-                shooting = false;
-                animator.SetBool("Shooting", shooting);
-            Debug.Log("Entra en la primera");
-                if (_bulletCounter >= 4) 
-                {
-                    reloading = true;
-                    _bulletCounter = 0;
-                    animator.SetBool("Shooting", shooting);
-                Debug.Log("Entra en la segunda");
-                    yield return new WaitForSeconds(3f);
-                Debug.Log("Sale de la segunda");
-                    reloading = false;
-            }
-            }
+        if (shooting == true) 
+        {
+            reloading = true;
+            shooting = false;
+            animator.SetBool("Shooting", shooting);
+            yield return new WaitForSeconds(1.2f);
+            reloading = false;
+        }
     }
 
     private void Update()
