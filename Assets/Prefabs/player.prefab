@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 7477660585353017222}
   - component: {fileID: 7778180915957450867}
   - component: {fileID: 6211993940146387220}
-  - component: {fileID: 6219254632354603006}
+  - component: {fileID: 7418553951458472449}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -271,6 +271,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7484449648511643801
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -316,7 +317,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -8099168456606810932, guid: b2aa4d6e1ac5297428bf92b3abe52011, type: 3}
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 6628241730391956291, guid: 030d601f3da33d648a25875852e3703e, type: 3}
   m_Color: {r: 0.7686275, g: 0.7686275, b: 0.7686275, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -325,7 +327,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &349145614152181391
 BoxCollider2D:
@@ -361,17 +362,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.013123363, y: 0.16340406}
+  m_Offset: {x: 0.0021942705, y: 0.0013842657}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.15, y: 0.29}
+    oldSize: {x: 0.15, y: 0.28}
     newSize: {x: 0.15, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.2892112, y: 0.39180776}
+  m_Size: {x: 0.17532, y: 0.30135143}
   m_EdgeRadius: 0
 --- !u!50 &395846161745492594
 Rigidbody2D:
@@ -469,7 +470,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6219254632354603006
+--- !u!114 &7418553951458472449
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -481,6 +482,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b8f93e843468643aa13e72692dbb9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
+  _positionsSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _canvas: {fileID: 0}
+  _newSlot: {fileID: 9093992241261627252, guid: d459e1c960a01454a9591528cc098cb5, type: 3}
   _animals: {fileID: 0}
 --- !u!1 &7205207044932755438
 GameObject:

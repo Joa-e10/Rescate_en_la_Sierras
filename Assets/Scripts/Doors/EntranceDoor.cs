@@ -16,7 +16,7 @@ public class EntranceDoor : MonoBehaviour
         {
             if (_numbreKeys >= 1) 
             {
-                inventory.Entry();
+                //inventory.Entry();
                 _isInside = true;
                 _exitDoor.SetInside(_isInside);
             }

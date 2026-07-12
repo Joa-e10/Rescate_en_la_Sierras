@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class DoorKey : MonoBehaviour
+public class DoorKey : Keys
 {
-
     // Verificamos que el objeto colisione con algo.
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -11,7 +10,7 @@ public class DoorKey : MonoBehaviour
         // Si el objeto con el que colisiona contiene el componente "PlayerInventory" llama a la funcion de ese objeto para añadir el objeto al hud.
         if (inventory != null)
         {
-            inventory.AddDoorKey();
+            inventory.AddKeys(_data, _data._amount);
             Destroy(gameObject);
 
         }

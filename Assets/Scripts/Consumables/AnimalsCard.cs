@@ -22,7 +22,7 @@ public class AnimalsCard : MonoBehaviour
         {
             Debug.Log("Entro en el queridisimo colider");
             animalCard.SetActive(false);
-            playerInventory.SetAnimalCounter(_animalCounter++);
+            //playerInventory.SetAnimalCounter(_animalCounter++);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

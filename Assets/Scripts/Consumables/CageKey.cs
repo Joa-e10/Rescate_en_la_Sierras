@@ -1,7 +1,9 @@
+using System.Collections;
 using UnityEngine;
 
-public class CageKey : MonoBehaviour
+public class CageKey : Keys
 {
+    private bool _inInventory;
     // Verificamos que el objeto colisione con algo.
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -10,9 +12,11 @@ public class CageKey : MonoBehaviour
         // Si el objeto con el que colisiona contiene el componente "PlayerInventory" llama a la funcion de ese objeto para añadir el objeto al hud.
         if (inventory != null)
         {
-          inventory.AddCageKey();
-          Destroy(gameObject);
+            inventory.AddKeys(_data, _data._amount);
+            
+            Destroy(gameObject);
         }
+     
     }
     void Start()
     {

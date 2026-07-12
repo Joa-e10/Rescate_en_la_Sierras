@@ -28,7 +28,7 @@ public class ExitDoor : MonoBehaviour
             Debug.Log("Esta vivo?: " + _isAlive);
             if (_isInside && !_isAlive)
             {
-                inventory.Exit();
+                //inventory.Exit();
             }
             else 
             {

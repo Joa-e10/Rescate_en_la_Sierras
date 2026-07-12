@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,66 +6,47 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class CanvasManager : MonoBehaviour
 {
-    private int _amountCageKey = 0;
-    private int _amountDoorKey = 0;
     public string _nameItem;
     public GameObject _imageKeyC;
     public GameObject _imageKeyD;
     public TextMeshProUGUI amountCageKey;
     public TextMeshProUGUI amountDoorKey;
     public GameObject panelFinal;
+    private PlayerInventory _playerInventory;
+    [SerializeField] private GameObject _newSlot;
+    [SerializeField] private Transform _panelHud;
 
     void Start()
     {
-
+        _playerInventory = GameObject.Find("player").GetComponent<PlayerInventory>(); 
     }
 
     void Update()
     {
         Debug.Log("Nombre del item?: "+_nameItem);
+        //RefreshInventoryUI();
     }
 
-    public void PlayerSlot1(int newAmount)
+    public void RefreshInventoryUI()
     {
-        _amountCageKey = newAmount;
-        Debug.Log("Las llaves amontonadas son: " + _amountCageKey);
-        if (!_imageKeyC.activeSelf && _amountCageKey >= 1)
+       // _playerInventory = GetComponent<PlayerInventory>();
+        Debug.Log("Entramos para refrescar");
+        foreach (Transform t in _panelHud)
         {
-            Debug.Log("Se activa la imagen de la llave dorada");
-            _imageKeyC.SetActive(true);
-            amountCageKey.text = _amountCageKey.ToString();
+            Debug.Log("Entramos a limpiar");
+            Destroy(t.gameObject);
         }
-        else
-        {
-            if (_amountCageKey <= 0)
-            {
-                _imageKeyC.SetActive(false);
-            }
-            amountCageKey.text = _amountCageKey.ToString();
-            Debug.Log("Se actualizo la cantidad de la llaves door");
-        }
-    }
 
-    public void PlayerSlot2(int newAmount) 
-    {
-        _amountDoorKey = newAmount;
-        if (!_imageKeyD.activeSelf && _amountDoorKey >= 1)
+        foreach (KeyValuePair<ItemData, int> item in _playerInventory._hud)
         {
-            Debug.Log("Se activa la imagen de la llave plateada");
-            _imageKeyD.SetActive(true);
-            amountDoorKey.text = _amountDoorKey.ToString();
+            GameObject _slot = Instantiate(_newSlot, _panelHud);
+            SlotUi slotAttributes = _slot.GetComponent<SlotUi>();
+            slotAttributes._textamount.text = item.Value.ToString();
+            slotAttributes._icon.sprite = item.Key._icon;
+            slotAttributes._data = item.Key;
+            Debug.Log("Recorremos la activacion del prefab");
         }
-        else
-        {
-            if (_amountDoorKey <= 0) 
-            {
-                _imageKeyD.SetActive(false);
 
-                Debug.Log("Se actualizo la cantidad de la llaves door");
-                amountDoorKey.text = _amountDoorKey.ToString();
-            }
-
-        }
     }
     public void JugarDeNuevo()
     {

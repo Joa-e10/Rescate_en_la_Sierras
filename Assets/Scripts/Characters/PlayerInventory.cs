@@ -5,29 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class PlayerInventory : MonoBehaviour
 {
-   public Dictionary<string, int> hud = new Dictionary<string, int>();
+   public Dictionary<ItemData, int> _hud = new Dictionary<ItemData, int>();
     private int _cageKey;
     private int _doorKey;
-    private string _nameItem;
+    private ItemData _nameItem;
+    private int _itemAmount;
     private int _animalCounter = 0;
-    private CanvasManager _canvas;
+    
     private Transform _doorExit;
     private Transform _doorPosition;
     private EntranceDoor _doorEntrance;
     public Animals _animals;
     private string _nameAnimal;
     private bool _inTheRoom = false;
+    //Nueva logic
+    [SerializeField]private CanvasManager _canvasManager;
+
     void Start()
     {
-        _doorExit = GameObject.Find("doorExit").GetComponent<Transform>();
-        _doorPosition = GameObject.Find("doorEntrance").GetComponent<Transform>();
-        _canvas = GameObject.Find("Canvas_HUD").GetComponent<CanvasManager>();
-        _doorEntrance = GameObject.Find("doorEntrance").GetComponent<EntranceDoor>();
+        //_doorExit = GameObject.Find("doorExit").GetComponent<Transform>();
+       // _doorPosition = GameObject.Find("doorEntrance").GetComponent<Transform>();
+        //_doorEntrance = GameObject.Find("doorEntrance").GetComponent<EntranceDoor>();
     }
 
     void Update()
     {
-        foreach (KeyValuePair<string, int> item in hud)
+       /* foreach (KeyValuePair<string, int> item in hud)
         {
             Debug.Log($"La llave es: {item.Key} y el valor que tiene es {item.Value}");
             if (item.Key == "CageKey")
@@ -45,10 +48,10 @@ public class PlayerInventory : MonoBehaviour
         if (_animalCounter >= 3) 
         {
             SceneManager.LoadScene("WinScene");
-        }
+        }*/
     }
 
-    public void SetAnimalCounter(int newAmount) 
+   /* public void SetAnimalCounter(int newAmount) 
     {
         _animalCounter = _animalCounter + newAmount;
     }
@@ -76,7 +79,7 @@ public class PlayerInventory : MonoBehaviour
         {
 
         }*/
-    }
+   /* }
 
     //Carga del item "CageKage" en el inventario
     public void AddCageKey()
@@ -112,7 +115,7 @@ public class PlayerInventory : MonoBehaviour
 
     //ANIMALES
 
-    public void RestKey()
+    /*public void RestKey()
     {
         // Navegamos por todas las celdas del HUD
         foreach (KeyValuePair<string, int> item in hud)
@@ -130,14 +133,14 @@ public class PlayerInventory : MonoBehaviour
             }
         }
         hud["CageKey"] = _cageKey;
-    }
+    } */
 
     //PUERTAS
-    public void Entry() 
+   /* public void Entry() 
     {
         
         // Navegamos por todas las celdas del HUD
-        foreach (KeyValuePair<string, int> item in hud)
+        foreach (KeyValuePair<ItemData, int> item in _hud)
         {
             //Revisamos donde se encuentra la celda "DoorKey" en el HUD.
             if (item.Key == "DoorKey") 
@@ -151,13 +154,13 @@ public class PlayerInventory : MonoBehaviour
                 }
             }
         }
-        hud["DoorKey"] = _doorKey;
+        _hud["DoorKey"] = _doorKey;
     }
 
     public void Exit()
     {
     
-        foreach (KeyValuePair<string, int> item in hud)
+        foreach (KeyValuePair<string, int> item in _hud)
         {
             if (item.Key == "DoorKey")
             {
@@ -170,7 +173,7 @@ public class PlayerInventory : MonoBehaviour
                 }
             }
         }
-        hud["DoorKey"] = _doorKey;
+        _hud["DoorKey"] = _doorKey;
         
     }
 
@@ -190,7 +193,39 @@ public class PlayerInventory : MonoBehaviour
         }
         Debug.Log("Termina la corrutina");
 
+    }*/
+
+    public void AddKeys(ItemData _nameItem, int _itemAmount)
+    {
+        if (_nameItem == null) return;
+
+        if (_hud.ContainsKey(_nameItem))
+        {
+            _hud[_nameItem] += _itemAmount;
+            Debug.Log("Se actualizó la cantidad del objeto");
+        }
+        else
+        {
+            _hud.Add(_nameItem, _itemAmount);
+            Debug.Log("Se cargó un nuevo objeto");
+        }
+
+        _canvasManager.RefreshInventoryUI();
     }
 
+    public void RestKeys()
+    {
+        if (_nameItem == null) return;
 
+        if (_hud.ContainsKey(_nameItem))
+        {
+            _hud[_nameItem] -= _itemAmount;
+
+            if (_hud[_nameItem] <= 0) 
+            {
+                _hud.Remove(_nameItem);
+            }
+        }
+        _canvasManager.RefreshInventoryUI();
+    }
 }

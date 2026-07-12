@@ -17,9 +17,9 @@ public class Animals : MonoBehaviour
         // Si el objeto con el que colisiona contiene el componente "PlayerInventory" llama a la funcion de ese objeto para restar el item y actualizar el valor en el hud.
         if (inventory != null)
         {
-            inventory.SetNameAnimal(nameAnimal);
-            inventory.SetNameKey(_nameKey);
-            inventory.RestKey();
+           // inventory.SetNameAnimal(nameAnimal);
+           // inventory.SetNameKey(_nameKey);
+            //inventory.RestKey();
 
             //Si el animal es libre se le cambia de sprite.
             if (_isFree) 
