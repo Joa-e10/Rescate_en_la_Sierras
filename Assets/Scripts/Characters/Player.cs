@@ -60,19 +60,19 @@ public class Player : Characters
     {
         if (!shooting && reloading == false)
         {
-
+            
             if (value.isPressed && attacking == false)
             {
                 shooting = true;
-                animator.SetBool("Shooting", shooting);
+                
                 StartCoroutine(CooldownShoot());
                 GameObject generatedBullet = Instantiate(bullet, gun.transform.position, Quaternion.identity);
                 bullet bulletComponent = generatedBullet.GetComponent<bullet>();
                 bulletComponent.setDirectionBullet(_directionMouse.normalized);
+                
             }
 
         }
-
 
     }
 
@@ -98,14 +98,9 @@ public class Player : Characters
 
     protected IEnumerator CooldownShoot()
     {
-        if (shooting == true) 
-        {
-            reloading = true;
-            shooting = false;
-            animator.SetBool("Shooting", shooting);
-            yield return new WaitForSeconds(1.2f);
-            reloading = false;
-        }
+        reloading = true;
+       yield return new WaitForSeconds(1.2f);
+       reloading = false;
     }
 
     private void Update()
@@ -128,6 +123,7 @@ public class Player : Characters
             animator.SetFloat("LastY", _directionMouse.y);
 
         }
-        animator.SetBool("attacking", attacking); 
+        animator.SetBool("attacking", attacking);
+        animator.SetBool("Shooting", shooting);
     }
 }

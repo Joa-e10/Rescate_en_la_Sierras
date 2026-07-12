@@ -52,11 +52,11 @@ public abstract class Characters : MonoBehaviour
         animator.SetBool("Damaged", damaged);
     }
 
-    /* public void ShootDisabled()
+     public void ShootDisabled()
      {
 
          shooting = false;
-     }*/
+     }
 
     protected abstract void die(); // Metodo "morir".
         
