@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9024976457680263807}
   - component: {fileID: 5096673415455792337}
   - component: {fileID: 6093998776564632342}
-  - component: {fileID: 883537329091099656}
+  - component: {fileID: 5340601869464905833}
   m_Layer: 0
   m_Name: Zorro
   m_TagString: Untagged
@@ -140,7 +140,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.7754593, y: 1.1779671}
   m_EdgeRadius: 0
---- !u!114 &883537329091099656
+--- !u!114 &5340601869464905833
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,12 +149,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2733447899663382518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 411f5522ae3fc0446a56ffcd24c12151, type: 3}
+  m_Script: {fileID: 11500000, guid: 57087c3564c4bce4b9a3014c3c09f2a9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Zorro
-  _isFree: 0
-  animalFree: {fileID: -779248278925801245, guid: c837b2d61a7d79a4a89d9e5ad7c71617, type: 3}
-  zorroCard: {fileID: 4885844476333848254}
+  m_EditorClassIdentifier: Assembly-CSharp::Animals
+  _animalFree: {fileID: -779248278925801245, guid: c837b2d61a7d79a4a89d9e5ad7c71617, type: 3}
+  _animalCard: {fileID: 4885844476333848254}
 --- !u!1 &4885844476333848254
 GameObject:
   m_ObjectHideFlags: 0
