@@ -14,7 +14,7 @@ public class CanvasManager : MonoBehaviour
     public GameObject panelFinal;
     private PlayerInventory _playerInventory;
     [SerializeField] private GameObject _newSlot;
-    [SerializeField] private Transform _panelHud;
+    [SerializeField] private GameObject _panelHud;
     [SerializeField] private GameObject _animalCard;
     [SerializeField] private TextMeshProUGUI _descriptionAnimal;
 
@@ -26,14 +26,13 @@ public class CanvasManager : MonoBehaviour
     void Update()
     {
         Debug.Log("Nombre del item?: "+_nameItem);
-        //RefreshInventoryUI();
     }
 
     public void RefreshInventoryUI()
     {
-       // _playerInventory = GetComponent<PlayerInventory>();
+        Transform _thud = _panelHud.GetComponent<Transform>();
         Debug.Log("Entramos para refrescar");
-        foreach (Transform t in _panelHud)
+        foreach (Transform t in _thud)
         {
             Debug.Log("Entramos a limpiar");
             Destroy(t.gameObject);
@@ -41,7 +40,7 @@ public class CanvasManager : MonoBehaviour
 
         foreach (KeyValuePair<ItemData, int> item in _playerInventory._hud)
         {
-            GameObject _slot = Instantiate(_newSlot, _panelHud);
+            GameObject _slot = Instantiate(_newSlot, _thud);
             SlotUi slotAttributes = _slot.GetComponent<SlotUi>();
             slotAttributes._textamount.text = item.Value.ToString();
             slotAttributes._icon.sprite = item.Key._icon;
@@ -57,6 +56,15 @@ public class CanvasManager : MonoBehaviour
         _animalCard.SetActive(state);
         componentImage.sprite = imageAnimal;
         _descriptionAnimal.text = dataCard;
+
+        if (state != false)
+        {
+            _panelHud.SetActive(false);
+        }
+        else 
+        {
+            _panelHud.SetActive(true);
+        }
     }
 
     public void JugarDeNuevo()
