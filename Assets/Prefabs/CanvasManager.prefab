@@ -2502,6 +2502,8 @@ MonoBehaviour:
   panelFinal: {fileID: 7784931595519770449}
   _newSlot: {fileID: 9093992241261627252, guid: d459e1c960a01454a9591528cc098cb5, type: 3}
   _panelHud: {fileID: 5249659416257983718}
+  _animalCard: {fileID: 8598369471127150040}
+  _descriptionAnimal: {fileID: 4405324048213187897}
 --- !u!1 &7373490261865253483
 GameObject:
   m_ObjectHideFlags: 0
@@ -3248,12 +3250,12 @@ GameObject:
   - component: {fileID: 8139850464420195077}
   - component: {fileID: 276316464196184861}
   m_Layer: 5
-  m_Name: animalCardPuma
+  m_Name: AnimalCardUi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4128478927957384845
 RectTransform:
   m_ObjectHideFlags: 0

@@ -15,6 +15,8 @@ public class CanvasManager : MonoBehaviour
     private PlayerInventory _playerInventory;
     [SerializeField] private GameObject _newSlot;
     [SerializeField] private Transform _panelHud;
+    [SerializeField] private GameObject _animalCard;
+    [SerializeField] private TextMeshProUGUI _descriptionAnimal;
 
     void Start()
     {
@@ -48,6 +50,15 @@ public class CanvasManager : MonoBehaviour
         }
 
     }
+
+    public void AnimalCardUi(string dataCard, Sprite imageAnimal, bool state) 
+    {
+        Image componentImage = _animalCard.GetComponent<Image>();
+        _animalCard.SetActive(state);
+        componentImage.sprite = imageAnimal;
+        _descriptionAnimal.text = dataCard;
+    }
+
     public void JugarDeNuevo()
     {
         SceneManager.LoadScene(0);

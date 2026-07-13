@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4003ada83fc28ff4b86cfd1968081c06, type: 3}
+  m_Name: CorzuelaCard
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  _name: Corzuela
+  _amount: 1
+  _description: "Corzuela Parda Habita el centro y norte de Argentina, desde la provincia
+    de Mendoza y C\xF3rdoba hasta Misiones, Formosa y Jujuy.  llega a una altura
+    de 65 a 70 cent\xEDmetros y un peso de hasta 25 kilos. Tiene un cuerpo compacto
+    y patas delgadas. "
+  _type: 0
+  _icon: {fileID: -1718278837335103705, guid: c0a2627cf6a86004aa7e58278ad940e7, type: 3}
