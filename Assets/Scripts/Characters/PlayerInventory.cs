@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Progress;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class PlayerInventory : MonoBehaviour
     private bool _inTheRoom = false;
     //Nueva logic
     [SerializeField]private CanvasManager _canvasManager;
+    private List<ItemData> _itemsDelete = new List<ItemData>();
+    private List<ItemData> _itemsAdded = new List<ItemData>();
 
     void Start()
     {
@@ -121,10 +124,10 @@ public class PlayerInventory : MonoBehaviour
         }
         else
         {
-            _hud.Add(_nameItem, _itemAmount);
+            _hud.Add(_nameItem, 1);
             Debug.Log("Se cargó un nuevo objeto");
         }
-
+        //AddItems();
         _canvasManager.RefreshInventoryUI();
     }
 
@@ -136,11 +139,30 @@ public class PlayerInventory : MonoBehaviour
         {
             _hud[_nameItem] -= _itemAmount;
 
-            if (_hud[_nameItem] <= 0) 
+            if (_hud[_nameItem] <= 0)
             {
+
                 _hud.Remove(_nameItem);
             }
         }
+       // DiscardItems();
         _canvasManager.RefreshInventoryUI();
+    }
+
+    public void AddItems() 
+    {
+        if (_itemsAdded == null) return;
+        foreach (var item in _itemsAdded)
+        {
+            _hud.Add(item, 1);
+        }
+    }
+    public void DiscardItems() 
+    {
+        if (_itemsDelete == null) return;
+        foreach (var item in _itemsDelete)
+        {
+            _hud.Remove(item);
+        }
     }
 }

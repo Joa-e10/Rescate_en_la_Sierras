@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 6211993940146387220}
   - component: {fileID: 7418553951458472449}
   m_Layer: 0
-  m_Name: player
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -482,14 +482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b8f93e843468643aa13e72692dbb9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
-  _positionsSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _canvas: {fileID: 0}
-  _newSlot: {fileID: 9093992241261627252, guid: d459e1c960a01454a9591528cc098cb5, type: 3}
   _animals: {fileID: 0}
+  _canvasManager: {fileID: 0}
 --- !u!1 &7205207044932755438
 GameObject:
   m_ObjectHideFlags: 0

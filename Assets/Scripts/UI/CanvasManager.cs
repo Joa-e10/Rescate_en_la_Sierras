@@ -20,7 +20,7 @@ public class CanvasManager : MonoBehaviour
 
     void Start()
     {
-        _playerInventory = GameObject.Find("player").GetComponent<PlayerInventory>(); 
+        _playerInventory = GameObject.Find("Player").GetComponent<PlayerInventory>(); 
     }
 
     void Update()

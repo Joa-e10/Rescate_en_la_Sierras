@@ -14,7 +14,7 @@ public class FinalBoss : Enemy
     {
         
         _rb = GetComponent<Rigidbody2D>(); // Toma el componente rigidbody2D del objeto.
-        _player = GameObject.Find("player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
+        _player = GameObject.Find("Player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
         gun = GameObject.Find("gunController(2)").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "gunController(2)".
         _door = GameObject.Find("doorExit").GetComponent<ExitDoor>();
         detectionRadius = 20.0f;
