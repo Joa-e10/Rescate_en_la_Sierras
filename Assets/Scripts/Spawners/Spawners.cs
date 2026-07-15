@@ -8,9 +8,8 @@ public class Spawners : MonoBehaviour
 
     [SerializeField] private GameObject[] _listPrefabs = new GameObject[2];
     [SerializeField] private List<Transform> _listPositions = new List<Transform>();
-    [SerializeField] private GameObject _animalKey;
-    [SerializeField] private GameObject _doorKey;
     [SerializeField] private int _quantityEnemies;
+    [SerializeField] private GameObject _item;
     private Rigidbody2D _rb;
 
     void Start()
@@ -46,7 +45,7 @@ public class Spawners : MonoBehaviour
                 GameObject newEnemy;
 
                 Debug.Log("Entro veces");
-                if (_quantityEnemies <= 2)
+                if (_quantityEnemies <= 3)
                 {
                     newEnemy = Instantiate(_listPrefabs[0], _listPositions[_randomPos].position, Quaternion.identity);
                     _listEnemy[i] = newEnemy;
@@ -57,30 +56,25 @@ public class Spawners : MonoBehaviour
                     _listEnemy[i] = newEnemy;
                 }
             }
+
+            ItemDrop();
         }
 
            _isActive = false;
+        
+    }
 
-           /* if (_listEnemy.Length == _quantityEnemies && _isActive == false)
+    public void ItemDrop() 
+    {
+        if (_isActive == true)
+        {
+            if (_item != null) 
             {
-                if (_animalKey == null && _doorKey == null)
-                {
-                    Debug.Log("No existe ninguna llave");
-                }
-                else
-                {
-                    if (_animalKey != null)
-                    {
-                        newKey = Instantiate(_animalKey, _listPositions[1].position, Quaternion.identity);
-                        Destroy(gameObject);
-                    }
-                    if (_doorKey != null)
-                    {
-                        newKey = Instantiate(_doorKey, _listPositions[1].position, Quaternion.identity);
-                        Destroy(gameObject);
-                    }
-                }
-            }*/
+                GameObject newItem = Instantiate(_item, _listPositions[1].position, Quaternion.identity);
+            }
+
+            Destroy(gameObject);
+        }
         
     }
     private void Update()
