@@ -14,7 +14,7 @@ public class LetterController : MonoBehaviour
 
     void Start()
     {
-        _player = GameObject.Find("player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
+        _player = GameObject.Find("Player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
         _animator = GetComponent<Animator>();
         _letterSprite = GetComponent<SpriteRenderer>();
     }

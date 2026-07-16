@@ -1,12 +1,20 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class ExitDoor : MonoBehaviour
 {
-    private bool _isInside;
-    private bool _isAlive;
+    private bool _isAliveBoss;
+    [SerializeField]private ItemData _keyReturned;
     private FinalBoss _boss;
+    private bool _inTheRoom;
+    private EntranceDoor _entranceDoor;
+    private Transform _frontDoor;
+    private Transform _player;
+    private BoxCollider2D _boxCollider;
+    [SerializeField]private BoxCollider2D _bcEntrance;
+    private bool _contactEntrance;
 
     private void OnEnable()
     {
@@ -18,45 +26,60 @@ public class ExitDoor : MonoBehaviour
         //FinalBoss.OnDoorUnlocked -= Unlocked;
     }
     // Verificamos que el objeto colisione con algo.
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    void Start()
+    {
+      //  _boss = GameObject.Find("boss").GetComponent<FinalBoss>();
+        _player = GameObject.Find("Player").GetComponent<Transform>();
+        _frontDoor = GameObject.Find("EntranceDoor").GetComponent<Transform>();
+        _entranceDoor = GameObject.Find("EntranceDoor").GetComponent<EntranceDoor>();
+        _boxCollider = GetComponent<BoxCollider2D>();
+    }
+
+    public void SetAlive(bool newState)
+    {
+        _isAliveBoss = newState;
+    }
+
+    public void SetInTheRoom(bool newState)
+    {
+        _inTheRoom = newState;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         PlayerInventory inventory = collision.gameObject.GetComponent<PlayerInventory>();
 
-        // Si el objeto con el que colisiona contiene el componente "PlayerInventory" llama a la funcion de ese objeto para añadir el item perdido al hud y transportar al personaje.
-        if (inventory != null)
+        // Si el objeto con el que colisiona contiene el componente "PlayerInventory" llama a la funcion de ese objeto para restar el item y actualizar el valor en el hud.
+        if (inventory != null && _inTheRoom == true)
         {
-            Debug.Log("Esta vivo?: " + _isAlive);
-            if (_isInside && !_isAlive)
+            //_contactEntrance = true;
+
+            if (_isAliveBoss == false) 
             {
-                //inventory.Exit();
-            }
-            else 
-            {
-                Debug.Log("El player no debe salir");
+                _player.position = _frontDoor.position;
+                inventory.AddKeys(_keyReturned, 1);
+                StartCoroutine(DepartureTime());
             }
 
         }
     }
 
-    public void SetAlive(bool newState)
+    private IEnumerator DepartureTime()
     {
-        _isAlive = newState;
-    }
-
-    public void SetInside(bool newState)
-    {
-            _isInside = newState;
-        
-    }
-
-    void Start()
-    {
-        _boss = GameObject.Find("boss").GetComponent<FinalBoss>();
-        
+        if (_inTheRoom == true)
+        {
+            Debug.Log("Inicia la corrutina de ExitDoor");
+            
+            yield return new WaitForSeconds(1f);
+            _inTheRoom = false;
+            
+        }
+        _entranceDoor.SetInTheRoom(_inTheRoom);
     }
 
     void Update()
     {
-        
+        Debug.Log("El estado: "+_inTheRoom);
     }
 }

@@ -17,10 +17,20 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject _panelHud;
     [SerializeField] private GameObject _animalCard;
     [SerializeField] private TextMeshProUGUI _descriptionAnimal;
+    private int _animalIndex = 0;
 
+    private void OnEnable()
+    {
+        Animals.OnAnimalAdd += EndActive;
+    }
+
+    private void OnDisable()
+    {
+        Animals.OnAnimalAdd -= EndActive;
+    }
     void Start()
     {
-        _playerInventory = GameObject.Find("player").GetComponent<PlayerInventory>(); 
+        _playerInventory = GameObject.Find("Player").GetComponent<PlayerInventory>(); 
     }
 
     void Update()
@@ -64,6 +74,16 @@ public class CanvasManager : MonoBehaviour
         else 
         {
             _panelHud.SetActive(true);
+        }
+    }
+
+    public void EndActive() 
+    {
+        _animalIndex++;
+
+        if (_animalIndex >= 3) 
+        {
+            panelFinal.SetActive(true);
         }
     }
 
