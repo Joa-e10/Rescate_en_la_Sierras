@@ -5,8 +5,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class ExitDoor : MonoBehaviour
 {
-    private bool _isInside;
-    private bool _isAlive;
+    private bool _isAliveBoss;
     [SerializeField]private ItemData _keyReturned;
     private FinalBoss _boss;
     private bool _inTheRoom;
@@ -14,6 +13,8 @@ public class ExitDoor : MonoBehaviour
     private Transform _frontDoor;
     private Transform _player;
     private BoxCollider2D _boxCollider;
+    [SerializeField]private BoxCollider2D _bcEntrance;
+    private bool _contactEntrance;
 
     private void OnEnable()
     {
@@ -37,13 +38,12 @@ public class ExitDoor : MonoBehaviour
 
     public void SetAlive(bool newState)
     {
-        _isAlive = newState;
+        _isAliveBoss = newState;
     }
 
-    public void SetInside(bool newState)
+    public void SetInTheRoom(bool newState)
     {
-        _isInside = newState;
-        
+        _inTheRoom = newState;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -51,13 +51,17 @@ public class ExitDoor : MonoBehaviour
         PlayerInventory inventory = collision.gameObject.GetComponent<PlayerInventory>();
 
         // Si el objeto con el que colisiona contiene el componente "PlayerInventory" llama a la funcion de ese objeto para restar el item y actualizar el valor en el hud.
-        if (inventory != null)
+        if (inventory != null && _inTheRoom == true)
         {
-            inventory.AddKeys(_keyReturned, 1);
-            StartCoroutine(DepartureTime());
-            _inTheRoom = _entranceDoor.GetInTheRoom();
-            _player.position = _frontDoor.position;
-           // inventory.AddItems();
+            //_contactEntrance = true;
+
+            if (_isAliveBoss == false) 
+            {
+                _player.position = _frontDoor.position;
+                inventory.AddKeys(_keyReturned, 1);
+                StartCoroutine(DepartureTime());
+            }
+
         }
     }
 
@@ -66,8 +70,8 @@ public class ExitDoor : MonoBehaviour
         if (_inTheRoom == true)
         {
             Debug.Log("Inicia la corrutina de ExitDoor");
+            
             yield return new WaitForSeconds(1f);
-
             _inTheRoom = false;
             
         }
@@ -76,6 +80,6 @@ public class ExitDoor : MonoBehaviour
 
     void Update()
     {
-        
+        Debug.Log("El estado: "+_inTheRoom);
     }
 }

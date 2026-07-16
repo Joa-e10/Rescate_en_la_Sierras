@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Animals : MonoBehaviour
@@ -8,6 +9,7 @@ public class Animals : MonoBehaviour
     private SpriteRenderer _spriteAnimal;
     [SerializeField]private Sprite _animalFree;
     [SerializeField]private GameObject _animalCard;
+    private bool _isAdded;
 
 
     private void Start()
@@ -29,9 +31,15 @@ public class Animals : MonoBehaviour
                     inventory.RestKeys(item.Key, 1);
                     _spriteAnimal.sprite = _animalFree;
                     _animalCard.SetActive(true);
-
+                    _isAdded = true;
                 }
+            }
+
+            if (_isAdded == true) 
+            {
+                OnAnimalAdd?.Invoke();
             }
         }
     }
+    public static event Action OnAnimalAdd;
 }

@@ -21,8 +21,8 @@ public class Player : Characters
         gun = GameObject.Find("gunController").GetComponent<Transform>();
         _camera = Camera.main;
 
-        lives = 10f;
-        speed = 5f;
+        lives = 100f;
+        speed = 10f;
     }
 
     public void setShooting(bool state)

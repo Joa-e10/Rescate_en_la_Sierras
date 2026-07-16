@@ -12,7 +12,7 @@ public class TutorialControl : MonoBehaviour
 
     void Start()
     {
-        _player = GameObject.Find("player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
+        _player = GameObject.Find("Player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
         _tutorial = GetComponent<SpriteRenderer>();
     }
 
