@@ -1,3 +1,16 @@
+/*public static event Action OnDoorUnlocked;
+    private void OnDisable()
+    {
+       OnDoorUnlocked?.Invoke();
+        _door.SetAlive(false);
+
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+    }*/
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,26 +22,30 @@ public class FinalBoss : Enemy
     private Transform gun;
     private int amountBullet;
     private ExitDoor _door;
-    public GameObject _bosslife; 
+    public GameObject _bosslife;
+
+    //Update variables:
+    private bool _reloading;
+
     void Start()
     {
-        
+
         _rb = GetComponent<Rigidbody2D>(); // Toma el componente rigidbody2D del objeto.
         _player = GameObject.Find("Player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
         gun = GameObject.Find("gunController(2)").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "gunController(2)".
-        _door = GameObject.Find("doorExit").GetComponent<ExitDoor>();
+        //_door = GameObject.Find("doorExit").GetComponent<ExitDoor>();
         detectionRadius = 20.0f;
 
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
-    
+
     void Update()
     {
-            moveEnemy();
-            Attack();
-        _door.SetAlive(true);
+        moveEnemy();
+        Attack();
+        //_door.SetAlive(true);
 
         if (_alive != true)
         {
@@ -40,116 +57,108 @@ public class FinalBoss : Enemy
     protected override void moveEnemy()
     {
         distanceToPlayer = Vector2.Distance(transform.position, _player.position);
-        agent.speed = 4;
 
-        if (lives <= 5)
+
+        if (distanceToPlayer < detectionRadius)
         {
-          
-            if (distanceToPlayer < detectionRadius)
+            if (lives > 5)
             {
-
-                if (distanceToPlayer <= 5)
+                if (distanceToPlayer > 4)
                 {
-                    Vector3 direction = (transform.position - _player.position);
-                    Vector3 newDirection = transform.position + direction.normalized * 2f;
-                    agent.SetDestination(newDirection);
-                    
+                    agent.isStopped = false;
+                    Debug.Log("Esta persiguiendo al player");
+                    bool agentdestination = agent.SetDestination(_player.transform.position);
+                    Debug.Log("El objetivo actual es verdadero?: " + agentdestination);
+                    //_bosslife.SetActive(true);
                 }
-
-            }
-            else 
-            {
-
-                //Debug.Log("la nueva direccion devuelve: " + distanceToPlayer);
-                agent.SetDestination(_player.position);
-                
-            }
-
-        }
-        else
-        {
-
-            if (shooting || attacking)
-            {
-                Debug.Log("Se No esta moviendo y esta atacando o disparando");
+                else
+                {
+                    Debug.Log("Esta ignorando al player");
+                    agent.isStopped = true;
+                }
             }
             else
             {
-                Debug.Log("Se esta moviendo");
-                if (distanceToPlayer < detectionRadius)
-                {
-                    if (distanceToPlayer > 2)
-                    {
-                        agent.SetDestination(_player.transform.position);
-                        _bosslife.SetActive(true);
-                    }
-
-                }
-
+                agent.isStopped = true;
             }
 
         }
-
-        
-            
     }
 
-    //agent.isStopped = true;
-    protected override void Attack() 
+
+    public void AttackMelee()
+    {
+        if (distanceToPlayer <= 4)
+        {
+            if (attacking == false && _reloading == false)
+            {
+                Debug.Log("ENTRO A ATACAR EL ENEMY");
+                attacking = true;
+                _reloading = true;
+                // animator.SetBool("Attacking", attacking); // Activa la animacion de ataque.
+            }
+        }
+
+    }
+
+    public void AttackDistance()
+    {
+        if (distanceToPlayer <= 6)
+        {
+
+            if (shooting == false && _reloading == false)
+            {
+
+                Debug.Log("El BOSS esta disparando");
+                shooting = true;
+                _reloading = true;
+                Vector2 direction = (_player.position - transform.position);
+                _lastBullet = direction;
+                GameObject generatedBullet = Instantiate(bulletEnemy, gun.transform.position, Quaternion.identity);
+                BulletEnemy bulletComponent = generatedBullet.GetComponent<BulletEnemy>();
+                bulletComponent.setDirectionBullet(_lastBullet);
+
+            }
+        }
+    }
+
+    protected override void Attack()
     {
         //Si la distancia del jugador es menor o igual a 10 puede atacar.
         if (distanceToPlayer <= detectionRadius)
         {
-            if (distanceToPlayer <= 4) 
+            if (lives > 5)
             {
-                if (!attacking && shooting == false)
-                {
-                    StartCoroutine(AttackWithCooldown());
-                }
+                AttackMelee();
+                StartCoroutine(AttackWithCooldown());
             }
-
-            //LOGICA DEL DISPARO.
-            if (lives <= 5) 
+            else
             {
-                // Si se cumplen las 2 condiciones el enemigo puede disparar.
-
-                if (!shooting && attacking == false)
-                {
-                    StartCoroutine(ShootWithCooldown());
-                }
+                StartCoroutine(ShootWithCooldown());
             }
         }
     }
 
     protected IEnumerator ShootWithCooldown()
     {
-        shooting = true;
-        Debug.Log("El enemigo esta disparando");
+        if (_reloading == false)
+        {
+            AttackDistance();
+        }
+        else
+        {
+            yield return new WaitForSeconds(1.5f);
+            _reloading = false;
+            shooting = false;
+        }
 
-        Vector2 direction = (_player.position - transform.position);
-        _lastBullet = direction;
-        GameObject generatedBullet = Instantiate(bulletEnemy, gun.transform.position, Quaternion.identity);
-        BulletEnemy bulletComponent = generatedBullet.GetComponent<BulletEnemy>();
-        bulletComponent.setDirectionBullet(_lastBullet);
-        //animator.SetBool("Shooting", shooting);
-        amountBullet++;
-
-        yield return new WaitForSeconds(1.5f);
-
-        shooting = false;
-        //animator.SetBool("Shooting", shooting);
     }
 
     protected IEnumerator AttackWithCooldown()
     {
-        Debug.Log("ENTRO A ATACAR EL ENEMY");
-        attacking = true;
-        animator.SetBool("Attacking", attacking); // Activa la animacion de ataque
-
-        yield return new WaitForSeconds(2f);
-        Debug.Log("Salio de la corrutina");
+        yield return new WaitForSeconds(1f);
+        _reloading = false;
         attacking = false;
-        animator.SetBool("Attacking", attacking);
     }
 
 
@@ -157,8 +166,8 @@ public class FinalBoss : Enemy
     //public static event Action OnDoorUnlocked;
     private void OnDisable()
     {
-       //OnDoorUnlocked?.Invoke();
-        _door.SetAlive(false);
+        //OnDoorUnlocked?.Invoke();
+        //_door.SetAlive(false);
 
     }
 
