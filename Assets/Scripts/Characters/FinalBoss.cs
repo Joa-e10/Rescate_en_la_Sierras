@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,7 +17,7 @@ public class FinalBoss : Enemy
         _rb = GetComponent<Rigidbody2D>(); // Toma el componente rigidbody2D del objeto.
         _player = GameObject.Find("Player").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "player".
         gun = GameObject.Find("gunController(2)").GetComponent<Transform>(); // Toma el componente "transform" del objeto llamado "gunController(2)".
-        _door = GameObject.Find("doorExit").GetComponent<ExitDoor>();
+        _door = GameObject.Find("ExitDoor").GetComponent<ExitDoor>();
         detectionRadius = 20.0f;
 
         agent = GetComponent<NavMeshAgent>();
@@ -93,8 +94,6 @@ public class FinalBoss : Enemy
         
             
     }
-
-    //agent.isStopped = true;
     protected override void Attack() 
     {
         //Si la distancia del jugador es menor o igual a 10 puede atacar.
@@ -154,10 +153,10 @@ public class FinalBoss : Enemy
 
 
 
-    //public static event Action OnDoorUnlocked;
+    public static event Action OnDoorUnlocked;
     private void OnDisable()
     {
-       //OnDoorUnlocked?.Invoke();
+       OnDoorUnlocked?.Invoke();
         _door.SetAlive(false);
 
     }
