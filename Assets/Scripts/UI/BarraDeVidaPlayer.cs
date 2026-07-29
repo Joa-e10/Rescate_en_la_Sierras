@@ -11,7 +11,7 @@ public class BarraDeVidaPlayer : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _player = GameObject.Find("player").GetComponent<Player>();
+        _player = GameObject.Find("Player").GetComponent<Player>();
         vidaMaxima = _player.lives;
 
     }
